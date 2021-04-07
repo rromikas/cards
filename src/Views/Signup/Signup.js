@@ -19,15 +19,18 @@ const CreateAccount = ({ email, password, onSuccess, onError }) => {
 
       var user = userCredential.user;
 
-      db.ref("users")
+      db.ref("admin")
         .get()
         .then((snap) => {
-          const finalUser = {
-            email: user.email,
-            isAdmin: snap.val() ? false : true,
-          };
-          db.ref(`users/${user.uid}`).set(finalUser);
-          onSuccess(finalUser);
+          if (!snap.val()) {
+            db.ref()
+              .update({ admin: user.uid })
+              .then(() => {
+                onSuccess({ ...user, isAdmin: true });
+              });
+          } else {
+            onSuccess(user);
+          }
         });
     })
     .catch((error) => {

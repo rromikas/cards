@@ -4,6 +4,7 @@ import Metals from "./Metals";
 import Borders from "./Borders";
 import Discounts from "./Discounts";
 import { useState } from "react";
+import firebase from "FirebaseApp";
 
 const Admin = ({ setUser }) => {
   const [page, setPage] = useState("Metals");
@@ -11,6 +12,7 @@ const Admin = ({ setUser }) => {
     <div className="position-fixed w-100 h-100 d-flex" style={{ top: 0, left: 0 }}>
       <Menu
         logout={() => {
+          firebase.auth().signOut();
           setUser(null);
           window.location.replace("/");
         }}

@@ -9,6 +9,9 @@ export const updateDB = (updates) => {
       .update(updates)
       .then(() => {
         resolve(true);
+      })
+      .catch(() => {
+        resolve(false);
       });
   });
 };

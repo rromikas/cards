@@ -17,10 +17,14 @@ const login = ({ email, password, onSuccess, onError }) => {
       var user = userCredential.user;
 
       const db = firebase.database();
-      db.ref(`users/${user.uid}`)
+      db.ref(`admin`)
         .get()
         .then((snap) => {
-          onSuccess(snap.val());
+          let finalUser = { ...user };
+          if (snap.val() === user.uid) {
+            finalUser.isAdmin = true;
+          }
+          onSuccess(finalUser);
         });
     })
     .catch((error) => {
