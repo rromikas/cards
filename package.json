@@ -12,6 +12,7 @@
     "bootstrap": "^4.6.0",
     "firebase": "^8.3.2",
     "formik": "^2.2.6",
+    "mime-types": "^2.1.30",
     "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",

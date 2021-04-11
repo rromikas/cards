@@ -1,5 +1,6 @@
 import firebase from "FirebaseApp";
 import { v4 as uuidv4 } from "uuid";
+import mime from "mime-types";
 
 const db = firebase.database();
 
@@ -25,10 +26,10 @@ export const uploadImage = (file) => {
     const storage = firebase.storage();
 
     const metadata = {
-      contentType: "image/jpeg",
+      contentType: file.type,
     };
 
-    const fileName = uuidv4() + ".jpg";
+    const fileName = uuidv4() + "." + mime.extension(file.type);
     let ref = storage.ref(fileName);
     const uploadTask = ref.put(file, metadata);
     uploadTask.on(
