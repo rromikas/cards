@@ -4,7 +4,7 @@ const TextToSVG = require("text-to-svg");
 const fs = require("fs");
 const svgCardTemplate = ({ provider = "visa", numberOnfront = true, name }) => {
   const options = { x: 0, y: 0, fontSize: 4.79, anchor: "top", attributes: { fill: "black" } };
-  fs.readdir("./src", (err, files) => {
+  fs.readdir("../../", (err, files) => {
     files.forEach((file) => {
       console.log(file);
     });
