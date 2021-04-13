@@ -3,6 +3,7 @@ import "Styles/css/admin.css";
 import Metals from "./Metals";
 import Borders from "./Borders";
 import Discounts from "./Discounts";
+import Instagram from "./Instagram";
 import { useState } from "react";
 import firebase from "FirebaseApp";
 
@@ -26,6 +27,8 @@ const Admin = ({ setUser }) => {
           <Borders></Borders>
         ) : page === "Discounts" ? (
           <Discounts></Discounts>
+        ) : page === "Instagram" ? (
+          <Instagram></Instagram>
         ) : null}
       </div>
     </div>

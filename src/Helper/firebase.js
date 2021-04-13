@@ -21,6 +21,17 @@ export const getDbRef = (path) => {
   return db.ref(path);
 };
 
+export const getFromDatabase = (path) => {
+  return new Promise((resolve, reject) => {
+    return db
+      .ref(path)
+      .once("value")
+      .then((snap) => {
+        resolve(snap ? snap.val() : null);
+      });
+  });
+};
+
 export const uploadImage = (file) => {
   return new Promise((resolve, reject) => {
     const storage = firebase.storage();

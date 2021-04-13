@@ -14,28 +14,6 @@
   background-position: center;
 }
 
-.resource-prop-label {
-  text-transform: uppercase;
-  color: #717171;
-  font-size: 12px;
-}
-
-.resource-prop {
-  width: 100%;
-  padding: 0 5px;
-  font-size: 16px;
-  color: white;
-  background: #222222;
-  border-radius: 4px;
-  outline: none;
-  border: none;
-}
-
-.resource-prop:disabled {
-  background: transparent;
-  padding: 0;
-}
-
 .resource-outlined-btn {
   border: 1px solid rgb(118, 118, 118) !important;
   color: #767676 !important;

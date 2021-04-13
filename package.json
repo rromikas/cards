@@ -15,6 +15,7 @@
     "mime-types": "^2.1.30",
     "moment": "^2.29.1",
     "nodemailer": "^6.5.0",
+    "oswald-path": "^1.0.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
     "react-burger-menu": "^3.0.3",
@@ -37,10 +38,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:lambda": "netlify-lambda serve src/lambda",
-    "build": "run-p build:**",
-    "build:app": "react-scripts build",
-    "build:lambda": "netlify-lambda build src/lambda",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

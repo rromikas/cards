@@ -1,7 +1,7 @@
 import Logo from "Assets/images/logo/logo2r.png";
 import ButtonBase from "@material-ui/core/ButtonBase";
 
-const items = ["Metals", "Borders", "Discounts"];
+const items = ["Metals", "Borders", "Discounts", "Instagram"];
 
 const Menu = ({ setPage, page, logout }) => {
   return (
