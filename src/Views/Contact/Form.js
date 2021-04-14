@@ -19,6 +19,7 @@ const Form = ({ open, handleClose }) => {
     e.preventDefault();
     setLoading(true);
     const response = await sendEmail({ message, email });
+    console.log("response contact", response);
     if (response.success) {
       setMessageSent(true);
     }
