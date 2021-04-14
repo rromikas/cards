@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
-import { useObjectVal } from "react-firebase-hooks/database";
-import { getDbRef } from "Helper/firebase";
 
-const TogglemImage = ({ getBackground }) => {
-  const [metals, loading, error] = useObjectVal(getDbRef("metals"));
-
+const TogglemImage = ({ getBackground, metals }) => {
   const resources = metals ? metals : {};
 
   const [groupValue, setGroupValue] = useState();
@@ -45,7 +41,7 @@ const TogglemImage = ({ getBackground }) => {
               backgroundPosition: "center",
             }}
           >
-            +{resources[x].price}$
+            +{resources[x].price}R
           </ToggleButton>
         ))}
     </ToggleButtonGroup>

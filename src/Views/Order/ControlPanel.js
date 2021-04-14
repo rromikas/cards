@@ -12,6 +12,8 @@ import ToggleImage from "../../Components/ToggleImage";
 import ToggleBorder from "../../Components/ToggleBorder";
 import CustomizeItem from "../../Components/CustomizeItem";
 import Invoice from "./Invoice";
+import { useObjectVal } from "react-firebase-hooks/database";
+import { getDbRef } from "Helper/firebase";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -50,6 +52,8 @@ export default function ControlPanel({ getValue, handleCheckoutSubmit }) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const [invoiceItem, setInvoiceItem] = React.useState();
+  const [metals] = useObjectVal(getDbRef("metals"));
+  const [borders] = useObjectVal(getDbRef("borders"));
 
   const [controlValue, setControlValue] = useState({
     primaryName: "",
@@ -88,6 +92,7 @@ export default function ControlPanel({ getValue, handleCheckoutSubmit }) {
   const ChipTypeData = [
     { value: "visa", label: "Visa" },
     { value: "mastercard", label: "Master Card" },
+    { value: "none", label: "None" },
   ];
 
   const handleOptions = (value) => {
@@ -168,10 +173,10 @@ export default function ControlPanel({ getValue, handleCheckoutSubmit }) {
         </div>
       </TabPanel>
       <TabPanel value={value} index={1} dir={theme.direction}>
-        <ToggleImage getBackground={handleBackGround} />
+        <ToggleImage metals={metals} getBackground={handleBackGround} />
       </TabPanel>
       <TabPanel value={value} index={2} dir={theme.direction}>
-        <ToggleBorder getValue={handleBorderToggle} />
+        <ToggleBorder borders={borders} getValue={handleBorderToggle} />
       </TabPanel>
       <TabPanel value={value} index={3} dir={theme.direction}>
         <CustomizeItem

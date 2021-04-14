@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "../Styles/css/card.css";
-import { RiVisaLine, RiMastercardFill } from "react-icons/ri";
 import Draggable from "react-draggable";
-import B1 from "../Assets/images/border/b1.png";
-import B2 from "../Assets/images/border/b2.png";
+import { ReactComponent as VisaIcon } from "Assets/images/card/visa.svg";
+import { ReactComponent as MastercardIcon } from "Assets/images/card/mastercard.svg";
 
 function FrontCard({ data, background }) {
   const [state, setState] = React.useState({
@@ -32,7 +31,12 @@ function FrontCard({ data, background }) {
   };
 
   return (
-    <div className="card-container" style={divStyle}>
+    <div className="card-container position-relative overflow-hidden" style={divStyle}>
+      {data && data.borderIndicator && data.borderIndicator !== "none" ? (
+        <div className="position-absolute" style={{ top: 3, left: 3, bottom: 3, right: 3 }}>
+          <img src={data.borderIndicator} className="position-absolute img-border" />
+        </div>
+      ) : null}
       <Draggable {...dragHandlers}>
         <img src={data && data?.logo} style={imageStyle} />
       </Draggable>
@@ -47,38 +51,44 @@ function FrontCard({ data, background }) {
           </>
         )}
       </div>
-      <div className="card-portion">
+      <div className="position-absolute" style={{ left: 46.9, top: 114.31 }}>
         <span className="small-chip"></span>
       </div>
-      <div className="card-portion card-number">
+      <div
+        className="position-absolute text-center text-white card-number"
+        style={{ top: 163.61, left: 0, right: 0 }}
+      >
         {data?.cardNumberPosition === "front" && (
           <>
             <Draggable {...dragHandlers}>
               <div>7777 7777 7777 7777</div>
             </Draggable>
-            <Draggable {...dragHandlers}>
-              <div>Valid 77/77</div>
-            </Draggable>
+            <div className="card-valid-number">
+              <Draggable {...dragHandlers}>
+                <div>Valid 77/77</div>
+              </Draggable>
+            </div>
           </>
         )}
       </div>
-      <div className="card-portion name-type-portion">
+      <div className="position-absolute" style={{ bottom: 12, left: 17 }}>
         <Draggable {...dragHandlers}>
-          <div>{data?.primaryName || "(Name Here)"}</div>
+          <div className="cardholder-name text-white">{data?.primaryName || "(Name Here)"}</div>
         </Draggable>
+      </div>
+      <div className="position-absolute" style={{ bottom: 12, right: 17 }}>
         <Draggable {...dragHandlers}>
           <div>
-            {data && data.cardNumberType === "visa" ? (
-              <RiVisaLine className="card-type-icon" />
-            ) : (
-              <RiMastercardFill className="card-type-icon" />
-            )}
+            {data ? (
+              data.cardNumberType === "visa" ? (
+                <VisaIcon fill="white" width="65px" height="28px" />
+              ) : data.cardNumberType === "mastercard" ? (
+                <MastercardIcon fill="white" width="65px" height="45px" />
+              ) : null
+            ) : null}
           </div>
         </Draggable>
       </div>
-      {data && data.borderIndicator !== "none" ? (
-        <img src={data.borderIndicator} className="img-border" />
-      ) : null}
     </div>
   );
 }

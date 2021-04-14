@@ -1,186 +1,133 @@
-.card-container{
-    width: 98%;
-    min-height: 300px;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    flex-flow: column wrap;
-    justify-content: space-between;
-    position: relative;
-    margin-bottom: 20px;
-    box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%), 0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
+.card-container {
+  width: 98%;
+  min-height: 300px;
+  border-radius: 20px;
+  position: relative;
+  margin-bottom: 20px;
+  box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%), 0px 3px 4px 0px rgb(0 0 0 / 14%),
+    0px 1px 8px 0px rgb(0 0 0 / 12%);
 }
 
 .card-container img {
-    display: none;
+  display: none;
 }
-
 
 .card-container img[src] {
-   display: block;
-   user-select: none;
- }
-
-.card-portion{
-    width: 100%;
-    height: 40px !important;
-    color: #ffffff;
-    cursor: pointer;
+  display: block;
+  user-select: none;
 }
 
-.custom-text-last{
-    padding: 10px;
+.card-portion {
+  width: 100%;
+  height: 40px !important;
+  color: #ffffff;
+  cursor: pointer;
 }
 
-
-.small-chip{
-    width: 40px;
-    height: 40px;
-    background-color: lightcyan;
-    display: block;
-    border-radius: 10px;
-    margin-left: 70px;
-    position: relative;
-  
+.custom-text-last {
+  padding: 10px;
 }
 
-.name-type-portion{
-    display: flex;
-    justify-content: space-between;
-    padding: 25px;
-    align-items: center;
+.small-chip {
+  width: 68.24px;
+  height: 50.57px;
+  background-color: lightcyan;
+  display: block;
+  border-radius: 10px;
+  position: relative;
 }
 
-.name-type-portion div:nth-child(1){
-    font-size: 1.6rem;
-    margin-bottom: 5px;
+.cardholder-name {
+  font-size: 1.6rem;
 }
 
-.card-type-icon{
-    font-size: 60px;
-    margin-right: 5px;
+.card-type-icon {
+  font-size: 60px;
+  margin-right: 5px;
 }
 
-.card-number{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.card-number {
+  font-size: 1.5rem;
 }
 
-.card-number div:nth-child(1){
-    font-size: 1.5rem;
+.card-valid-number {
+  font-size: 1rem;
 }
-
 
 /* Back Card */
-.back-card-scan{
-    height: 50px;
-    width: 100%;
-    display: block;
-    background-color: #333 !important;
-    color: lightcyan;
-    margin-top: 25px;
-    margin-bottom: 10px;
+.back-card-scan {
+  height: 50px;
+  width: 100%;
+  background-color: #333 !important;
+  color: lightcyan;
 }
 
-
-.back-seal-portion{
-    display: flex;
-   
-    align-items: flex-start;
+.back-seal-container {
+  width: 50%;
 }
 
-.back-seal-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-
+.authorize-sig {
+  font-size: 0.6rem;
+  color: #fff;
+  text-align: center;
+  width: 225px;
 }
 
-.authorize-sig{
-    font-size: .6rem;
-    color: #fff;
-    text-align: center;
+.back-seal {
+  width: 225px;
+  height: 50px;
+  background-color: #ffffff;
 }
 
-.back-seal{
-    width: 100%;
-    height: 50px;
-    display: block;
-    background-color: #ffffff;
-    margin-left: 30px;
-
+.back-seal-text {
+  font-size: 1.5rem;
+  color: #ffffff;
 }
 
-.back-seal-text{
-    width: 30%;
-    font-size: 1.5rem;
-    color: #ffffff;
-    text-align: center;
-    position: relative;
-    top: 10px;
+.back-number {
+  font-size: 1.4rem;
 }
 
-.back-number{
-    color: #fff;
-    font-size: 1.4rem;
-    margin-left: 10px;
-    display: flex;
-    flex-direction: column;
-    padding-left: 10px;
-    width: max-content ;
+.back-valid-date {
+  font-size: 0.6rem;
 }
 
-
-.back-number div:nth-child(2){
-    font-size: .6rem;
-    text-align: center;
+.back-bankname-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.back-bankname-container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 10px;
+.bankname-left {
+  width: 70%;
 }
 
-.bankname-left{
-    width: 70%;
+.bankname-left span:nth-child(1) {
+  color: #fff;
+  display: block;
+  font-size: 1.2rem;
+  text-transform: uppercase;
 }
 
-.bankname-left span:nth-child(1){
-    color: #fff;
-    display: block;
-    font-size: 1.2rem;
-    text-transform: uppercase;
+.bankname-left span:nth-child(2) {
+  color: #fff;
+  display: block;
+  font-size: 0.6rem;
+  text-transform: uppercase;
 }
 
-.bankname-left span:nth-child(2){
-    color: #fff;
-    display: block;
-    font-size: .6rem;
-    text-transform: uppercase;
+.back-logo {
+  color: #fff;
+  text-align: left;
 }
 
-.back-logo{
-    margin-right: 10px;
-    color: #fff;
-    text-align: right;
-}
-
-.back-notice{
-    font-size: .6rem;
-    color: #ffffff;
-    text-align: center;
-    margin-top: 5px;
-    padding: 5px;
+.back-notice {
+  font-size: 0.6rem;
 }
 
 @media only screen and (max-width: 768px) {
-    .card-container{
-        width: 100%;
-        margin-left: 5px;
-    }
+  .card-container {
+    width: 100%;
+    margin-left: 5px;
+  }
 }

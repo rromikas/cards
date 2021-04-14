@@ -52,7 +52,7 @@ html {
 
 a {
   text-decoration: none !important; /* no underline */
-  color: #ffbd1b;
+  color: #ffbd1b !important;
 }
 
 a:hover {
@@ -65,4 +65,8 @@ a:hover {
   background: #222222;
   color: white;
   border-radius: 11px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

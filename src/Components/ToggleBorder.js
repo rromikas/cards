@@ -1,14 +1,9 @@
 import React, { useEffect } from "react";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
-import B1 from "../Assets/images/border/b1.png";
-import B2 from "../Assets/images/border/b2.png";
-import { useObjectVal } from "react-firebase-hooks/database";
-import { getDbRef } from "Helper/firebase";
 
-const ToggleBorder = ({ getValue }) => {
-  const [metals] = useObjectVal(getDbRef("borders"));
-  const resources = { ...(metals ? metals : {}), none: { image: "none", price: 0 } };
+const ToggleBorder = ({ getValue, borders }) => {
+  const resources = { ...(borders ? borders : {}), none: { image: "none", price: 0 } };
 
   const [groupValue, setGroupValue] = React.useState();
 
@@ -44,7 +39,7 @@ const ToggleBorder = ({ getValue }) => {
             {x !== "none" ? (
               <>
                 <img src={resources[x].image} className="img-border" />
-                <div className="border-price">+{resources[x].price}$</div>
+                <div className="border-price">+{resources[x].price}R</div>
               </>
             ) : (
               <div className="text-white">None</div>
