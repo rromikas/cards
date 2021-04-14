@@ -28,12 +28,14 @@ const updateBorder = (id) => (values) => {
 };
 
 const Borders = () => {
-  const [borders, loading, error] = useObjectVal(getDbRef("borders"));
+  const [borders, loading] = useObjectVal(getDbRef("borders"));
 
   const resources = borders ? borders : {};
 
-  return (
-    <div>
+  return loading ? (
+    <div className="m-auto text-white">Loading...</div>
+  ) : (
+    <div className="w-100">
       <div className="d-flex justify-content-between flex-wrap align-items-center mb-5">
         <div className="admin-page-title">Borders</div>
         <div style={{ maxWidth: 141, width: "100%" }}>

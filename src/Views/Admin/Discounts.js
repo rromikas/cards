@@ -28,12 +28,14 @@ const updateDiscount = (id) => (values) => {
 };
 
 const Discounts = () => {
-  const [discountsObjVal, loading, error] = useObjectVal(getDbRef("discounts"));
+  const [discountsObjVal, loading] = useObjectVal(getDbRef("discounts"));
 
   const discounts = discountsObjVal ? discountsObjVal : {};
 
-  return (
-    <div>
+  return loading ? (
+    <div className="m-auto text-white">Loading...</div>
+  ) : (
+    <div className="w-100">
       <div className="d-flex justify-content-between flex-wrap align-items-center mb-5">
         <div className="admin-page-title">Discounts</div>
         <div style={{ maxWidth: 141, width: "100%" }}>

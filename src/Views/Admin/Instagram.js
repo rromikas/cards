@@ -52,7 +52,7 @@ const Discounts = () => {
   }, []);
 
   return (
-    <div>
+    <div className="w-100">
       <div className="d-flex justify-content-between flex-wrap align-items-center mb-5">
         <div className="admin-page-title">Instagram</div>
       </div>
@@ -60,7 +60,10 @@ const Discounts = () => {
         <div className={classes.instaContainer}>
           <div className="d-flex align-items-center mb-4">
             <div className="flex-grow-1 pr-3">
-              <div className={classes.label}>ACCESS TOKEN</div>
+              <div className="d-flex align-items-center">
+                <div className={classes.label + " mr-3"}>ACCESS TOKEN</div>
+              </div>
+
               <input
                 disabled={!editToken}
                 className={classes.input + " text-truncate"}
@@ -68,6 +71,16 @@ const Discounts = () => {
                 value={token}
                 onChange={(e) => setToken(e.target.value)}
               ></input>
+              {/* <div className="d-flex justify-content-end">
+                <a
+                  style={{ fontSize: 12, lineHeight: 1 }}
+                  target="_blank"
+                  href="https://medium.com/the-innovation/embed-your-instagram-feed-in-2020-68cefb93c650"
+                  className="text-yellow mt-1"
+                >
+                  HOW TO GENERATE?
+                </a>
+              </div> */}
             </div>
             {editToken ? (
               <ButtonBase

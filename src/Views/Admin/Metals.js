@@ -28,12 +28,14 @@ const updateMetal = (id) => (values) => {
 };
 
 const Metals = () => {
-  const [metals, loading, error] = useObjectVal(getDbRef("metals"));
+  const [metals, loading] = useObjectVal(getDbRef("metals"));
 
   const resources = metals ? metals : {};
 
-  return (
-    <div>
+  return loading ? (
+    <div className="m-auto text-white">Loading...</div>
+  ) : (
+    <div className="w-100">
       <div className="d-flex justify-content-between flex-wrap align-items-center mb-5">
         <div className="admin-page-title">Metals</div>
         <div style={{ maxWidth: 141, width: "100%" }}>

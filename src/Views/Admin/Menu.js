@@ -5,8 +5,8 @@ const items = ["Metals", "Borders", "Discounts", "Instagram"];
 
 const Menu = ({ setPage, page, logout }) => {
   return (
-    <div className="admin-menu p-5 d-flex flex-column">
-      <img className="mb-5" width={199} src={Logo}></img>
+    <div className="admin-menu p-5 d-flex flex-column flex-grow-1">
+      <img className="mb-5" width={199} src={Logo} alt=""></img>
       {items.map((x, i) => (
         <div
           onClick={() => setPage(x)}

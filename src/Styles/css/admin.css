@@ -72,3 +72,9 @@
   background: transparent;
   padding: 0;
 }
+
+.admin-navbar {
+  background: black;
+  position: fixed;
+  z-index: 100;
+}
