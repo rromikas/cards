@@ -50,7 +50,7 @@ const Metals = () => {
           </Button>
         </div>
       </div>
-      <div className="resources-container" style={{ maxWidth: 800 }}>
+      <div className="resources-container pb-5" style={{ maxWidth: 800 }}>
         {Object.keys(resources)
           .sort((a, b) => (resources[a].image === "empty" ? -1 : 1))
           .map((x, i) => (

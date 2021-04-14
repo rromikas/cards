@@ -49,7 +49,7 @@ const Admin = ({ setUser }) => {
         <MenuWithProps></MenuWithProps>
       </div>
 
-      <div className="col p-5 overflow-auto d-flex flex-wrap h-100">
+      <div className="col px-5 pt-5 overflow-auto d-flex flex-wrap h-100">
         <div className="d-block d-md-none" style={{ height: 82, width: "100%" }}></div>
         {page === "Metals" ? (
           <Metals></Metals>

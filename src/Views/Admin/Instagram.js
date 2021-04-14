@@ -52,7 +52,7 @@ const Discounts = () => {
   }, []);
 
   return (
-    <div className="w-100">
+    <div className="w-100 pb-5">
       <div className="d-flex justify-content-between flex-wrap align-items-center mb-5">
         <div className="admin-page-title">Instagram</div>
       </div>

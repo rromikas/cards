@@ -50,7 +50,7 @@ const Discounts = () => {
           </Button>
         </div>
       </div>
-      <div className="discounts-container" style={{ maxWidth: 800 }}>
+      <div className="discounts-container pb-5" style={{ maxWidth: 800 }}>
         {Object.keys(discounts)
           .sort((a, b) => (discounts[a].code === "empty" ? -1 : 1))
           .map((x, i) => (
