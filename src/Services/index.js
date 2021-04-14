@@ -1,7 +1,7 @@
 const apiUrl =
   process.env.NODE_ENV === "production" ? process.env.REACT_APP_API_URL : "http://localhost:8888";
 
-export const sendCards = ({ name, provider, numberOnfront, email }) => {
+export const sendCards = ({ name, provider, numberOnFront, email, logoText, logoTextSize }) => {
   return fetch(`${apiUrl}/api/sendCards`, {
     method: "POST",
     headers: {
@@ -10,8 +10,10 @@ export const sendCards = ({ name, provider, numberOnfront, email }) => {
     body: JSON.stringify({
       name,
       provider,
-      numberOnfront,
+      numberOnFront,
       email,
+      logoText,
+      logoTextSize,
     }),
   }).then((x) => x.json());
 };

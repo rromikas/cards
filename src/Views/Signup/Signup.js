@@ -9,7 +9,6 @@ import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 
 const CreateAccount = ({ email, password, onSuccess, onError }) => {
-  console.log(email, password);
   const db = firebase.database();
   firebase
     .auth()

@@ -76,7 +76,7 @@ function FrontCard({ data, background }) {
           </div>
         </Draggable>
       </div>
-      {data && data.borderIndicator ? (
+      {data && data.borderIndicator !== "none" ? (
         <img src={data.borderIndicator} className="img-border" />
       ) : null}
     </div>

@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ControlPanel({ getValue }) {
+export default function ControlPanel({ getValue, handleCheckoutSubmit }) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -87,7 +87,7 @@ export default function ControlPanel({ getValue }) {
 
   const ChipTypeData = [
     { value: "visa", label: "Visa" },
-    { value: "master", label: "Master Card" },
+    { value: "mastercard", label: "Master Card" },
   ];
 
   const handleOptions = (value) => {
@@ -194,7 +194,7 @@ export default function ControlPanel({ getValue }) {
         />
       </TabPanel>
       <hr></hr>
-      <Invoice data={invoiceItem} />
+      <Invoice data={invoiceItem} handleSubmit={handleCheckoutSubmit} />
     </div>
   );
 }

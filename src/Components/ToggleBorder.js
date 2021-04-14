@@ -7,8 +7,8 @@ import { useObjectVal } from "react-firebase-hooks/database";
 import { getDbRef } from "Helper/firebase";
 
 const ToggleBorder = ({ getValue }) => {
-  const [metals, loading, error] = useObjectVal(getDbRef("borders"));
-  const resources = metals ? metals : {};
+  const [metals] = useObjectVal(getDbRef("borders"));
+  const resources = { ...(metals ? metals : {}), none: { image: "none", price: 0 } };
 
   const [groupValue, setGroupValue] = React.useState();
 
@@ -41,8 +41,14 @@ const ToggleBorder = ({ getValue }) => {
             aria-label="left aligned"
             className="border-toggle-item"
           >
-            <img src={resources[x].image} className="img-border" />
-            <div className="border-price">+{resources[x].price}$</div>
+            {x !== "none" ? (
+              <>
+                <img src={resources[x].image} className="img-border" />
+                <div className="border-price">+{resources[x].price}$</div>
+              </>
+            ) : (
+              <div className="text-white">None</div>
+            )}
           </ToggleButton>
         ))}
     </ToggleButtonGroup>

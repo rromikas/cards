@@ -7,6 +7,7 @@ import M1 from "../../Assets/images/card/m1.jpg";
 import M2 from "../../Assets/images/card/m2.jpg";
 import M3 from "../../Assets/images/card/m3.jpg";
 import M4 from "../../Assets/images/card/m4.jpg";
+import { sendCards } from "Services";
 
 function Order() {
   const [customCard, setCustomCard] = useState();
@@ -14,6 +15,17 @@ function Order() {
 
   const handleValue = (value) => {
     setCustomCard(value);
+  };
+
+  const handleCheckoutSubmit = (email) => async () => {
+    const response = await sendCards({
+      name: customCard.primaryName,
+      provider: customCard.cardNumberType,
+      numberOnFront: customCard.cardNumberPosition === "front",
+      logoText: customCard.customText,
+      logoTextSize: customCard.textSize,
+      email,
+    });
   };
 
   useEffect(() => {
@@ -24,7 +36,6 @@ function Order() {
     }
   }, [customCard]);
 
-  console.log("From Abba", customCard);
   return (
     <div className="row order-container">
       <div className="col-md-5">
@@ -32,7 +43,7 @@ function Order() {
         <BackCard data={customCard} background={activeBackground || M2} />
       </div>
       <div className="col-md-7">
-        <ControlPanel getValue={handleValue} />
+        <ControlPanel handleCheckoutSubmit={handleCheckoutSubmit} getValue={handleValue} />
       </div>
     </div>
   );
