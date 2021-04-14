@@ -4,7 +4,7 @@ import Metals from "./Metals";
 import Borders from "./Borders";
 import Discounts from "./Discounts";
 import Instagram from "./Instagram";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import firebase from "FirebaseApp";
 import Navbar from "./Navbar";
 import Drawer from "@material-ui/core/Drawer";
@@ -12,6 +12,13 @@ import Drawer from "@material-ui/core/Drawer";
 const Admin = ({ setUser }) => {
   const [page, setPage] = useState("Metals");
   const [menuOpened, setMenuOpened] = useState(false);
+
+  useEffect(() => {
+    //prevent scrolling on html node. It fixes ios ui.
+    document.body.parentElement.style.overflowY = "hidden";
+
+    return () => (document.body.parentElement.style.overflowY = "scroll");
+  }, []);
 
   const MenuWithProps = () => {
     return (
@@ -22,12 +29,18 @@ const Admin = ({ setUser }) => {
           window.location.replace("/");
         }}
         page={page}
-        setPage={setPage}
+        setPage={(index) => {
+          setPage(index);
+          setMenuOpened(false);
+        }}
       ></Menu>
     );
   };
   return (
-    <div className="position-fixed w-100 h-100 d-flex flex-wrap" style={{ top: 0, left: 0 }}>
+    <div
+      className="position-fixed w-100 h-100 d-flex flex-wrap overflow-hidden"
+      style={{ top: 0, left: 0 }}
+    >
       <Navbar openMenu={() => setMenuOpened(true)}></Navbar>
       <Drawer open={menuOpened} onClose={() => setMenuOpened(false)}>
         <MenuWithProps></MenuWithProps>
