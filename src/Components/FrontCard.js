@@ -51,7 +51,7 @@ function FrontCard({ data, background }) {
           </>
         )}
       </div>
-      <div className="position-absolute" style={{ left: 46.9, top: 114.31 }}>
+      <div className="position-absolute" style={{ left: 47, top: 108 }}>
         <span className="small-chip"></span>
       </div>
       <div
