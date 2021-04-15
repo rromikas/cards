@@ -5,7 +5,7 @@ import Logo from "Assets/images/logo/logo2r.png";
 
 function BackCard({ data, background }) {
   let divStyle = {
-    backgroundImage: "url(" + background + ")",
+    backgroundImage: "url(" + background.image || "" + ")",
     backgroundSize: "cover",
   };
   return (

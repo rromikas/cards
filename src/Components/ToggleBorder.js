@@ -32,7 +32,7 @@ const ToggleBorder = ({ getValue, borders }) => {
         .map((x, i) => (
           <ToggleButton
             key={`border-option-${i}`}
-            value={resources[x].image}
+            value={resources[x]}
             aria-label="left aligned"
             className="border-toggle-item"
           >

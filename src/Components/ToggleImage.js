@@ -32,7 +32,7 @@ const TogglemImage = ({ getBackground, metals }) => {
         .map((x, i) => (
           <ToggleButton
             key={`metal-option-${i}`}
-            value={resources[x].image}
+            value={resources[x]}
             aria-label="left aligned"
             className="toggle-image-item bg-cover"
             style={{

@@ -20,37 +20,38 @@ function FrontCard({ data, background }) {
   const dragHandlers = { onStart: onStart, onStop: onStop };
 
   let divStyle = {
-    backgroundImage: "url(" + background + ")",
+    backgroundImage: "url(" + background.image || "" + ")",
     backgroundSize: "cover",
   };
 
   let imageStyle = {
-    position: "absolute",
+    objectFit: data?.keepLogoAspectRatio ? "contain" : "unset",
     height: `${data?.logoHeight}px`,
     width: `${data?.logoWidth}px`,
   };
 
   return (
     <div className="card-container position-relative overflow-hidden" style={divStyle}>
-      {data && data.borderIndicator && data.borderIndicator !== "none" ? (
+      {data && data.borderIndicator && data.borderIndicator.image !== "none" ? (
         <div className="position-absolute" style={{ top: 3, left: 3, bottom: 3, right: 3 }}>
-          <img src={data.borderIndicator} className="position-absolute img-border" />
+          <img src={data.borderIndicator.image} className="position-absolute img-border" />
         </div>
       ) : null}
       <Draggable {...dragHandlers}>
-        <img src={data && data?.logo} style={imageStyle} />
+        <div className="d-inline-flex">
+          <img draggable={false} src={data && data?.logo} style={imageStyle} />
+        </div>
       </Draggable>
-      <div className="card-portion">
-        {data && data.customText && (
-          <>
-            <Draggable {...dragHandlers}>
-              <div className="custom-text-last" style={{ fontSize: `${data.textSize + "px"}` }}>
-                {data.customText}
-              </div>
-            </Draggable>
-          </>
-        )}
-      </div>
+      {data && data.customText && (
+        <Draggable {...dragHandlers}>
+          <div
+            className="custom-text-last d-inline-flex position-absolute"
+            style={{ fontSize: `${data.textSize + "px"}`, left: 10, top: 10 }}
+          >
+            {data.customText}
+          </div>
+        </Draggable>
+      )}
       <div className="position-absolute" style={{ left: 47, top: 108 }}>
         <span className="small-chip"></span>
       </div>

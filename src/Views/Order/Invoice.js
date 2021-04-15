@@ -21,27 +21,6 @@ const useStyles = makeStyles((theme) => ({
 function Invoice({ data, handleSubmit }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [invoiceDetails, setInvoiceDetails] = React.useState({
-    item: null,
-    totalPrice: 100,
-  });
-
-  React.useEffect(() => {
-    if (data) {
-      if (data.border && data.border !== "none") {
-        setInvoiceDetails({
-          item: { Text: "Border", Price: "+5$" },
-          totalPrice: 100 + 5,
-        });
-      }
-      if (data.border && data.border === "none") {
-        setInvoiceDetails({
-          item: null,
-          totalPrice: 100,
-        });
-      }
-    }
-  }, [data]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,20 +30,29 @@ function Invoice({ data, handleSubmit }) {
     setOpen(false);
   };
 
+  const totalAmount =
+    +(data.borderIndicator.price || 0) + +(data.backgroundIndicator.price || 1499);
+
   return (
     <>
       <AlertDialogSlide
         open={open}
         handleClose={handleClose}
         handleSubmit={handleSubmit}
-        data={invoiceDetails}
+        data={data}
+        totalAmount={totalAmount}
       />
-      {invoiceDetails.item && (
-        <div className="row  extra-fac">
-          <div>{invoiceDetails.item?.Text}</div>
-          <div>{invoiceDetails.item?.Price}</div>
+      {data.borderIndicator ? (
+        <div className="row extra-fac">
+          <div>Border</div>
+          <div>R {data.borderIndicator.price}</div>
         </div>
-      )}
+      ) : null}
+      <div className="row extra-fac">
+        <div>Metal</div>
+        <div>R {data.backgroundIndicator.price || 1499}</div>
+      </div>
+
       <hr></hr>
       <div className="row">
         <div className="col-md-12 price">
@@ -80,7 +68,7 @@ function Invoice({ data, handleSubmit }) {
             </Button>
           </div>
           <div>Total</div>
-          <div>{invoiceDetails.totalPrice}$</div>
+          <div>R {totalAmount}</div>
         </div>
       </div>
     </>

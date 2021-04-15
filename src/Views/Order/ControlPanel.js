@@ -66,6 +66,7 @@ export default function ControlPanel({ getValue, handleCheckoutSubmit }) {
     logo: null,
     logoWidth: null,
     logoHeight: null,
+    keepLogoAspectRatio: false,
   });
 
   useEffect(() => {
@@ -194,12 +195,13 @@ export default function ControlPanel({ getValue, handleCheckoutSubmit }) {
               logo: value.logo,
               logoWidth: value.logoWidth,
               logoHeight: value.logoHeight,
+              keepLogoAspectRatio: value.keepLogoAspectRatio,
             })
           }
         />
       </TabPanel>
       <hr></hr>
-      <Invoice data={invoiceItem} handleSubmit={handleCheckoutSubmit} />
+      <Invoice data={controlValue} handleSubmit={handleCheckoutSubmit} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -10,6 +10,8 @@ import "../../Styles/css/dialog.css";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { useFormik } from "formik";
+import md5 from "md5";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,15 +32,36 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide({ open, handleClose, data, handleSubmit }) {
-  const [itemData, setItemData] = useState();
-  const [email, setEmail] = useState("");
+export default function AlertDialogSlide({ open, handleClose, data, totalAmount }) {
+  const formEl = useRef();
+
+  const { values, errors, handleChange, handleSubmit, submitCount } = useFormik({
+    initialValues: {
+      name_first: "",
+      name_last: "",
+      email_address: "",
+      address: "",
+      city: "",
+      state: "",
+    },
+    onSubmit: (val) => {
+      formEl.current.submit();
+    },
+  });
+
   const classes = useStyles();
-  useEffect(() => {
-    if (data) {
-      setItemData(data);
-    }
-  }, [data]);
+  const formData = new URLSearchParams({
+    merchant_id: 10000100,
+    merchant_key: "46f0cd694581a",
+    name_first: values.name_first,
+    name_last: values.name_last,
+    email_address: values.email_address,
+    amount: totalAmount,
+    item_name: "uCard Elite customized card",
+  });
+
+  const valuesString = formData.toString();
+  const signature = md5(valuesString);
 
   return (
     <>
@@ -53,86 +76,149 @@ export default function AlertDialogSlide({ open, handleClose, data, handleSubmit
       >
         <DialogTitle id="alert-dialog-slide-title">{"Invoice Details"}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            <div className="row dialog-upper">
-              <div className="col-md-8">
-                <TextField label="Discount Code" type="text" fullWidth variant="outlined" />
-              </div>
-              <div className="col-md-4">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  size="large"
-                  className={classes.pay}
-                >
-                  Apply
-                </Button>
-              </div>
-              {itemData?.item && (
-                <div className="order">
-                  <div className="order-item">
-                    <Typography>{itemData?.item?.Text}</Typography>
-                    <Typography>{itemData?.item?.Price}</Typography>
-                  </div>
+          <form
+            method="POST"
+            onSubmit={handleSubmit}
+            ref={formEl}
+            action="https://sandbox.payfast.co.za/eng/process/"
+          >
+            <DialogContentText id="alert-dialog-slide-description">
+              <div className="row dialog-upper">
+                <div className="col-md-8">
+                  <TextField label="Discount Code" type="text" fullWidth variant="outlined" />
                 </div>
-              )}
+                <div className="col-md-4">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    size="large"
+                    className={classes.pay}
+                  >
+                    Apply
+                  </Button>
+                </div>
+                {data.borderIndicator && data.borderIndicator.image !== "none" ? (
+                  <div className="order">
+                    <div className="order-item">
+                      <Typography>Border</Typography>
+                      <Typography>R {data.borderIndicator.price || 0} +</Typography>
+                    </div>
+                  </div>
+                ) : null}
 
-              {itemData && (
                 <div className="order">
                   <div className="order-item">
                     <Typography>Total</Typography>
-                    <Typography>${itemData?.totalPrice}</Typography>
+                    <Typography>${totalAmount}</Typography>
                   </div>
                 </div>
-              )}
-            </div>
+              </div>
+              <input type="hidden" name="merchant_id" value={formData.get("merchant_id")}></input>
+              <input type="hidden" name="merchant_key" value={formData.get("merchant_key")}></input>
+              <div className="container row mt-4">
+                <div className="col-md-6">
+                  <TextField
+                    required
+                    error={submitCount > 0 && errors["name_first"]}
+                    helperText={submitCount > 0 ? errors["name_first"] : ""}
+                    value={values.name_first}
+                    label="First Name"
+                    name="name_first"
+                    onChange={handleChange}
+                    type="text"
+                    fullWidth
+                  />
+                </div>
+                <div className="col-md-6">
+                  <TextField
+                    required
+                    error={submitCount > 0 && errors["name_last"]}
+                    helperText={submitCount > 0 ? errors["name_last"] : ""}
+                    value={values.name_last}
+                    label="Last Name"
+                    name="name_last"
+                    onChange={handleChange}
+                    type="text"
+                    fullWidth
+                  />
+                </div>
+                <div className="col-12 mt-4">
+                  <TextField
+                    required
+                    label="Email"
+                    type="email"
+                    name="email_address"
+                    value={values.email_address}
+                    onChange={handleChange}
+                    error={submitCount > 0 && errors["email"]}
+                    helperText={submitCount > 0 ? errors["email"] : ""}
+                    fullWidth
+                  />
+                </div>
+              </div>
+              <input type="hidden" name="amount" value={formData.get("amount")}></input>
+              <input type="hidden" name="item_name" value={formData.get("item_name")}></input>
+              <input type="hidden" name="signature" value={signature}></input>
+              {/* <div className="container row mt-4">
+                <div className="col-md-12">
+                  <TextField
+                    required
+                    value={values.address}
+                    onChange={handleChange}
+                    error={submitCount > 0 && errors["address"]}
+                    helperText={submitCount > 0 ? errors["address"] : ""}
+                    label="Address"
+                    name="address"
+                    fullWidth
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div className="container row mt-4">
+                <div className="col-md-6">
+                  <TextField
+                    required
+                    value={values.city}
+                    onChange={handleChange}
+                    error={submitCount > 0 && errors["city"]}
+                    helperText={submitCount > 0 ? errors["city"] : ""}
+                    label="City"
+                    name="city"
+                    fullWidth
+                    type="text"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <TextField
+                    required
+                    value={values.state}
+                    onChange={handleChange}
+                    error={submitCount > 0 && errors["state"]}
+                    helperText={submitCount > 0 ? errors["state"] : ""}
+                    label="State"
+                    name="state"
+                    fullWidth
+                    type="text"
+                  />
+                </div>
+              </div> */}
 
-            <div className="container row mt-4">
-              <div className="col-md-6">
-                <TextField label="Full Name" type="text" fullWidth />
+              <div className="container row justify-content-lg-center mt-4 pt-2 pb-4">
+                <div className="col-md-12">
+                  <Button
+                    type="submit"
+                    size="large"
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                  >
+                    Pay
+                  </Button>
+                </div>
               </div>
-              <div className="col-md-6">
-                <TextField
-                  label="Email"
-                  type="email"
-                  fullWidth
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="container row mt-4">
-              <div className="col-md-12">
-                <TextField label="Address" fullWidth type="text" />
-              </div>
-            </div>
-            <div className="container row mt-4">
-              <div className="col-md-6">
-                <TextField label="City" fullWidth type="text" />
-              </div>
-              <div className="col-md-6">
-                <TextField label="State" fullWidth type="text" />
-              </div>
-            </div>
-            <div className="container row  mt-4">
-              <div className="col-md-12">
-                <TextField label="Card Number" placeholder="MM/YY CVC" type="tele" fullWidth />
-              </div>
-            </div>
-            <div className="container row justify-content-lg-center mt-4">
-              <div className="col-md-12">
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color="secondary"
-                  onClick={handleSubmit(email)}
-                >
-                  Pay
-                </Button>
-              </div>
-            </div>
-          </DialogContentText>
+            </DialogContentText>
+          </form>
         </DialogContent>
       </Dialog>
     </>
