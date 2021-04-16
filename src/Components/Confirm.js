@@ -3,7 +3,7 @@ import Button from "Components/Button";
 import OutlinedButton from "Components/OutlinedButton";
 import { useState } from "react";
 
-const ConfirmRSVP = ({ question = "Do you agree to complete the action?", proceed }) => {
+const Confirm = ({ question = "Do you agree to complete the action?", proceed }) => {
   const [show, setShow] = useState(true); // for some reason after cancelling, popup closes with delay.
   return show ? (
     <div
@@ -38,4 +38,4 @@ const ConfirmRSVP = ({ question = "Do you agree to complete the action?", procee
   ) : null;
 };
 
-export default createConfirmation(confirmable(ConfirmRSVP));
+export default createConfirmation(confirmable(Confirm));
