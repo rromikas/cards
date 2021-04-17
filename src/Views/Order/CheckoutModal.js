@@ -73,9 +73,9 @@ export default function AlertDialogSlide({ open, handleClose, data, totalAmount 
   const formData = new URLSearchParams({
     merchant_id: 10000100,
     merchant_key: "46f0cd694581a",
+    return_url: window.location.origin + "/order-success",
+    cancel_url: window.location.origin + "/order-cancelled",
     notify_url: process.env.REACT_APP_API_URL + "/api/acceptPayment",
-    return_url: window.location.href + "order-success",
-    cancel_url: window.location.href + "order-cancelled",
     name_first: values.name_first,
     name_last: values.name_last,
     email_address: values.email_address,
@@ -135,6 +135,8 @@ export default function AlertDialogSlide({ open, handleClose, data, totalAmount 
               </div>
               <input type="hidden" name="merchant_id" value={formData.get("merchant_id")}></input>
               <input type="hidden" name="merchant_key" value={formData.get("merchant_key")}></input>
+              <input type="hidden" name="return_url" value={formData.get("return_url")}></input>
+              <input type="hidden" name="cancel_url" value={formData.get("cancel_url")}></input>
               <input type="hidden" name="notify_url" value={formData.get("notify_url")}></input>
               <div className="container row mt-4">
                 <div className="col-md-6">
