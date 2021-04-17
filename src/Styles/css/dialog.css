@@ -1,21 +1,20 @@
-.dialog-upper{
-    padding: 20px;
-    
-    border: 1px solid rgb(211, 209, 209);
+.dialog-upper {
+  padding: 20px;
+
+  border: 1px solid rgb(211, 209, 209);
 }
 
-.order{
-    width: 100%;
-    margin-top: 30px;
+.order {
+  width: 100%;
 }
 
-.order-item{
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+.order-item {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.apply .MuiButton-containedPrimary{
-    background-color: gold !important;
+.apply .MuiButton-containedPrimary {
+  background-color: gold !important;
 }

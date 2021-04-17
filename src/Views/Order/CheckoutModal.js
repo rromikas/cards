@@ -14,6 +14,11 @@ import { useFormik } from "formik";
 import md5 from "md5";
 import { updateDB } from "Helper/firebase";
 import { v4 as uuidv4 } from "uuid";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import Checkbox from "@material-ui/core/Checkbox";
+import * as yup from "yup";
 
 console.log(process.env.REACT_APP_API_URL + "/api/acceptPayment");
 const useStyles = makeStyles((theme) => ({
@@ -62,12 +67,25 @@ export default function AlertDialogSlide({ open, handleClose, data, totalAmount 
       city: "",
       state: "",
       m_payment_id: uuidv4(),
+      shipping: "",
+      insurance: false,
     },
+    validationSchema: yup.object().shape({
+      name_first: yup.string().required("Required"),
+      name_last: yup.string().required("Required"),
+      email_address: yup.string().email().required("Required"),
+      address: yup.string().required("Required"),
+      city: yup.string().required("Required"),
+      state: yup.string().required("Required"),
+      shipping: yup.string().required("Required"),
+    }),
     onSubmit: (val) => {
       createOrderIntent(val);
       formEl.current.submit();
     },
   });
+
+  console.log("Errors", errors);
 
   const classes = useStyles();
   const formData = new URLSearchParams({
@@ -103,7 +121,7 @@ export default function AlertDialogSlide({ open, handleClose, data, totalAmount 
           <DialogContentText id="alert-dialog-slide-description">
             <form method="POST" ref={formEl} action="https://sandbox.payfast.co.za/eng/process/">
               <div className="row dialog-upper">
-                <div className="col-md-8">
+                <div className="col-md-8 mb-3 mb-md-0">
                   <TextField label="Discount Code" type="text" fullWidth variant="outlined" />
                 </div>
                 <div className="col-md-4">
@@ -117,15 +135,51 @@ export default function AlertDialogSlide({ open, handleClose, data, totalAmount 
                     Apply
                   </Button>
                 </div>
+                <div className="col-12 mt-4">
+                  <Typography
+                    className={`mb-3 ${submitCount > 0 && errors["shipping"] ? "text-danger" : ""}`}
+                  >
+                    Select shipping
+                  </Typography>
+                  <RadioGroup
+                    aria-label="gender"
+                    name="shipping"
+                    value={values.shipping}
+                    onChange={handleChange}
+                  >
+                    <FormControlLabel
+                      value="Express Shipping R250"
+                      control={<Radio />}
+                      label="Local Shipping (South Africa Only) – Free Standard Shipping, Express Shipping R250"
+                    />
+                    <FormControlLabel
+                      value="Express Shipping R550"
+                      control={<Radio />}
+                      label="Rest Of World – Standard Shipping R300, Express Shipping R550"
+                    />
+                  </RadioGroup>
+                </div>
+                <div className="mt-3 col-12">
+                  <Typography className="mb-3">Insurance</Typography>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={values.insurance}
+                        onChange={handleChange}
+                        name="insurance"
+                      />
+                    }
+                    label="If card is lost or if it expires in the first 365 days, we’ll replace it just pay the shipping costs"
+                  />
+                </div>
                 {data.borderIndicator && data.borderIndicator.image !== "none" ? (
-                  <div className="order">
+                  <div className="order mt-5">
                     <div className="order-item">
                       <Typography>Border</Typography>
                       <Typography>R {data.borderIndicator.price || 0} +</Typography>
                     </div>
                   </div>
                 ) : null}
-
                 <div className="order">
                   <div className="order-item">
                     <Typography>Total</Typography>
@@ -139,7 +193,7 @@ export default function AlertDialogSlide({ open, handleClose, data, totalAmount 
               <input type="hidden" name="cancel_url" value={formData.get("cancel_url")}></input>
               <input type="hidden" name="notify_url" value={formData.get("notify_url")}></input>
               <div className="container row mt-4">
-                <div className="col-md-6">
+                <div className="col-md-6 mb-4 mb-md-0">
                   <TextField
                     required
                     error={submitCount > 0 && errors["name_first"]}
@@ -173,8 +227,8 @@ export default function AlertDialogSlide({ open, handleClose, data, totalAmount 
                     name="email_address"
                     value={values.email_address}
                     onChange={handleChange}
-                    error={submitCount > 0 && errors["email"]}
-                    helperText={submitCount > 0 ? errors["email"] : ""}
+                    error={submitCount > 0 && errors["email_address"]}
+                    helperText={submitCount > 0 ? errors["email_address"] : ""}
                     fullWidth
                   />
                 </div>
@@ -200,7 +254,7 @@ export default function AlertDialogSlide({ open, handleClose, data, totalAmount 
               </div>
             </div>
             <div className="container row mt-4">
-              <div className="col-md-6">
+              <div className="col-md-6 mb-4 mb-md-0">
                 <TextField
                   required
                   value={values.city}
