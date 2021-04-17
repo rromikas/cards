@@ -8,7 +8,7 @@ import { useState } from "react";
 
 function App() {
   const [user, setUser] = useState(null);
-
+  console.log("window location href", window.location.href);
   return (
     <div id="App">
       <NavigationMenu menu={menuItem} />

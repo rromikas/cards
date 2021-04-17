@@ -74,6 +74,7 @@ export default function AlertDialogSlide({ open, handleClose, data, totalAmount 
     merchant_id: 10000100,
     merchant_key: "46f0cd694581a",
     notify_url: process.env.REACT_APP_API_URL + "/api/acceptPayment",
+    return_url: process.env.REACT_APP_API_URL + "/api/acceptPayment",
     name_first: values.name_first,
     name_last: values.name_last,
     email_address: values.email_address,

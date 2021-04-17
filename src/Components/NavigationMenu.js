@@ -9,7 +9,9 @@ import TermsAndConditions from "Components/TermsAndConditions";
 const NavigationMenu = ({ menu }) => {
   const location = useLocation();
   const [showTerms, setShowTerms] = React.useState(false);
-  const show = !["login", "admin", "signup"].includes(location.pathname.replace("/", ""));
+  const show = !["login", "admin", "signup", "order-success", "order-cancelled"].includes(
+    location.pathname.replace("/", "")
+  );
   return show ? (
     <>
       <a href="/">
