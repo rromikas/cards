@@ -3,6 +3,7 @@ import "../Styles/css/card.css";
 import Draggable from "react-draggable";
 import { ReactComponent as VisaIcon } from "Assets/images/card/visa.svg";
 import { ReactComponent as MastercardIcon } from "Assets/images/card/mastercard.svg";
+import { renderImage } from "Helper/images";
 
 function FrontCard({ data, background }) {
   const [state, setState] = React.useState({
@@ -25,7 +26,7 @@ function FrontCard({ data, background }) {
   };
 
   let imageStyle = {
-    objectFit: data?.keepLogoAspectRatio ? "contain" : "unset",
+    // objectFit: data?.keepLogoAspectRatio ? "contain" : "unset",
     height: `${data?.logoHeight}px`,
     width: `${data?.logoWidth}px`,
   };
@@ -38,8 +39,11 @@ function FrontCard({ data, background }) {
         </div>
       ) : null}
       <Draggable {...dragHandlers}>
-        <div className="d-inline-flex">
-          <img draggable={false} src={data && data?.logo} style={imageStyle} />
+        <div>
+          <div>
+            <canvas id="logo-canvas" style={imageStyle}></canvas>
+          </div>
+          {/* <img draggable={false} src={data && data?.logo} style={imageStyle} /> */}
         </div>
       </Draggable>
       {data && data.customText && (

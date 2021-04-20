@@ -20,7 +20,6 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import * as yup from "yup";
 
-console.log(process.env.REACT_APP_API_URL + "/api/acceptPayment");
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
@@ -84,8 +83,6 @@ export default function AlertDialogSlide({ open, handleClose, data, totalAmount 
       formEl.current.submit();
     },
   });
-
-  console.log("Errors", errors);
 
   const classes = useStyles();
   const formData = new URLSearchParams({

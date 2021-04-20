@@ -131,6 +131,7 @@ export default function ControlPanel({ getValue, handleCheckoutSubmit }) {
       });
     }
   };
+
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -186,6 +187,7 @@ export default function ControlPanel({ getValue, handleCheckoutSubmit }) {
           customImage={controlValue.logo}
           customImageWidth={controlValue.logoWidth}
           customImageHeight={controlValue.logoHeight}
+          keepLogoAspectRatio={controlValue.keepLogoAspectRatio}
           getValue={(value) =>
             value &&
             setControlValue({

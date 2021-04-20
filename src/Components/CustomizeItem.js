@@ -4,6 +4,7 @@ import { Button } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import CustomTextField from "./CustomTextField";
 import Checkbox from "@material-ui/core/Checkbox";
+import { renderImage, removeImage } from "Helper/images";
 
 function CustomizeItem({
   getValue,
@@ -12,6 +13,7 @@ function CustomizeItem({
   customImage,
   customImageHeight,
   customImageWidth,
+  keepLogoAspectRatio,
 }) {
   const [state, setState] = useState({
     customText: customText || "",
@@ -19,7 +21,7 @@ function CustomizeItem({
     logo: customImage || null,
     logoWidth: customImageWidth || 100,
     logoHeight: customImageHeight || 100,
-    keepLogoAspectRatio: false,
+    keepLogoAspectRatio: keepLogoAspectRatio || false,
   });
 
   const [imageContol, setImageControl] = useState(false);
@@ -54,6 +56,7 @@ function CustomizeItem({
     setState({
       ...state,
       logoWidth: value,
+      ...(state.keepLogoAspectRatio ? { logoHeight: value } : {}),
     });
   };
 
@@ -61,14 +64,18 @@ function CustomizeItem({
     setState({
       ...state,
       logoHeight: value,
+      ...(state.keepLogoAspectRatio ? { logoWidth: value } : {}),
     });
   };
 
   const handleImage = (e) => {
     const image = e.target.files[0];
     const imageUrl = URL.createObjectURL(image);
+    renderImage(imageUrl, "logo-canvas");
     setState({
       ...state,
+      logoHeight: 200,
+      logoWidth: 200,
       logo: imageUrl,
     });
     setImageControl(true);
@@ -80,13 +87,24 @@ function CustomizeItem({
       logo: null,
     });
     setImageControl(false);
+    removeImage("logo-canvas");
   };
 
   const handleAspectRatio = (e) => {
-    setState({
-      ...state,
-      keepLogoAspectRatio: e.target.checked,
-    });
+    if (e.target.checked) {
+      let newSize = Math.max(state.logoHeight, state.logoWidth);
+      setState({
+        ...state,
+        logoHeight: newSize,
+        logoWidth: newSize,
+        keepLogoAspectRatio: e.target.checked,
+      });
+    } else {
+      setState({
+        ...state,
+        keepLogoAspectRatio: e.target.checked,
+      });
+    }
   };
 
   return (
@@ -120,6 +138,7 @@ function CustomizeItem({
                   aria-label="custom thumb label"
                   defaultValue={100}
                   color="primary"
+                  value={state.logoWidth}
                   onChange={handleImageWidth}
                 />
               </div>
@@ -130,12 +149,16 @@ function CustomizeItem({
                   aria-label="custom thumb label"
                   defaultValue={100}
                   color="primary"
+                  value={state.logoHeight}
                   onChange={handleImageHeight}
                 />
               </div>
               <div className="col-md-6 d-flex align-items-center mt-2">
-                <Checkbox checked={state.keepAspectRation} onChange={handleAspectRatio}></Checkbox>
-                <Typography gutterBottom>Keep aspect ratio</Typography>
+                <Checkbox
+                  checked={state.keepLogoAspectRatio}
+                  onChange={handleAspectRatio}
+                ></Checkbox>
+                <Typography>Keep aspect ratio</Typography>
               </div>
             </div>
             <div className="row image-control justify-content-end">
