@@ -35,7 +35,7 @@ export const convertImageToSvg = ({ imageUrl }) => {
   const body = {
     imageUrl,
   };
-  return fetch(`${apiUrl}/api/imageToSvg`, {
+  return fetch(`https://boiling-depths-34589.herokuapp.com/imageToSvg`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),

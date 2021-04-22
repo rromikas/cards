@@ -22,6 +22,7 @@ export const renderImage = (image) => {
 
       convertImageToSvg({ imageUrl })
         .then((res) => {
+          console.log(res);
           const logoContainer = document.getElementById("logo-container");
           logoContainer.innerHTML = res.svg;
           let svgNode = logoContainer.querySelector("svg");
