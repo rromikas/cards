@@ -30,3 +30,18 @@ export const sendEmail = ({ message, email }) => {
     }),
   }).then((x) => x.json());
 };
+
+export const convertImageToSvg = ({ imageUrl }) => {
+  const body = {
+    imageUrl,
+  };
+  return fetch(`${apiUrl}/api/imageToSvg`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  })
+    .then((x) => x.json())
+    .catch((er) => {
+      return er;
+    });
+};

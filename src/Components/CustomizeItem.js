@@ -4,7 +4,8 @@ import { Button } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import CustomTextField from "./CustomTextField";
 import Checkbox from "@material-ui/core/Checkbox";
-import { renderImage, removeImage } from "Helper/images";
+import { renderImage, removeLogo, getAspectRatio } from "Helper/images";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 function CustomizeItem({
   getValue,
@@ -23,6 +24,8 @@ function CustomizeItem({
     logoHeight: customImageHeight || 100,
     keepLogoAspectRatio: keepLogoAspectRatio || false,
   });
+
+  const [loadingImage, setLoadingImage] = useState(false);
 
   const [imageContol, setImageControl] = useState(false);
 
@@ -53,32 +56,48 @@ function CustomizeItem({
   };
 
   const handleImageWidth = (e, value) => {
-    setState({
-      ...state,
-      logoWidth: value,
-      ...(state.keepLogoAspectRatio ? { logoHeight: value } : {}),
-    });
+    const dx = value / state.logoWidth;
+    setState((prev) => ({
+      ...prev,
+      logoWidth: Math.max(value, 1),
+      ...(state.keepLogoAspectRatio ? { logoHeight: Math.max(state.logoHeight * dx, 1) } : {}),
+    }));
   };
 
   const handleImageHeight = (e, value) => {
-    setState({
-      ...state,
-      logoHeight: value,
-      ...(state.keepLogoAspectRatio ? { logoWidth: value } : {}),
-    });
+    const dx = value / state.logoHeight;
+    setState((prev) => ({
+      ...prev,
+      logoHeight: Math.max(value, 1),
+      ...(state.keepLogoAspectRatio ? { logoWidth: Math.max(state.logoWidth * dx, 1) } : {}),
+    }));
   };
 
-  const handleImage = (e) => {
-    const image = e.target.files[0];
-    const imageUrl = URL.createObjectURL(image);
-    renderImage(imageUrl, "logo-canvas");
-    setState({
-      ...state,
-      logoHeight: 200,
-      logoWidth: 200,
-      logo: imageUrl,
-    });
-    setImageControl(true);
+  const handleImage = async (e) => {
+    if (e.target.files.length) {
+      const image = e.target.files[0];
+      const imageUrl = URL.createObjectURL(image);
+      const aspectRatio = await getAspectRatio(imageUrl);
+      setLoadingImage(true);
+      renderImage(image).then(() => setLoadingImage(false));
+      if (aspectRatio > 500 / 300) {
+        setState({
+          ...state,
+          logoHeight: 500 / aspectRatio,
+          logoWidth: 500,
+          logo: imageUrl,
+        });
+      } else {
+        setState({
+          ...state,
+          logoHeight: 300,
+          logoWidth: 300 * aspectRatio,
+          logo: imageUrl,
+        });
+      }
+
+      setImageControl(true);
+    }
   };
 
   const handleRemoveLogo = () => {
@@ -87,24 +106,14 @@ function CustomizeItem({
       logo: null,
     });
     setImageControl(false);
-    removeImage("logo-canvas");
+    removeLogo();
   };
 
   const handleAspectRatio = (e) => {
-    if (e.target.checked) {
-      let newSize = Math.max(state.logoHeight, state.logoWidth);
-      setState({
-        ...state,
-        logoHeight: newSize,
-        logoWidth: newSize,
-        keepLogoAspectRatio: e.target.checked,
-      });
-    } else {
-      setState({
-        ...state,
-        keepLogoAspectRatio: e.target.checked,
-      });
-    }
+    setState({
+      ...state,
+      keepLogoAspectRatio: e.target.checked,
+    });
   };
 
   return (
@@ -128,13 +137,19 @@ function CustomizeItem({
             Upload Logo
           </Button>
         </label>
+        {loadingImage ? (
+          <div className="col-12">
+            <LinearProgress></LinearProgress>
+          </div>
+        ) : null}
+
         {imageContol && (
           <>
             <div className="row image-control">
               <div className="col-md-6">
                 <Typography gutterBottom>Width</Typography>
                 <Slider
-                  max="200"
+                  max={600}
                   aria-label="custom thumb label"
                   defaultValue={100}
                   color="primary"
@@ -145,7 +160,7 @@ function CustomizeItem({
               <div className="col-md-6">
                 <Typography gutterBottom>Height</Typography>
                 <Slider
-                  max="200"
+                  max={300}
                   aria-label="custom thumb label"
                   defaultValue={100}
                   color="primary"

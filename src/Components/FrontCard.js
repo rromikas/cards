@@ -29,6 +29,7 @@ function FrontCard({ data, background }) {
     // objectFit: data?.keepLogoAspectRatio ? "contain" : "unset",
     height: `${data?.logoHeight}px`,
     width: `${data?.logoWidth}px`,
+    fontSize: 0,
   };
 
   return (
@@ -41,7 +42,8 @@ function FrontCard({ data, background }) {
       <Draggable {...dragHandlers}>
         <div>
           <div>
-            <canvas id="logo-canvas" style={imageStyle}></canvas>
+            <div id="logo-container" className="position-absolute d-flex" style={imageStyle}></div>
+            <canvas id="logo-canvas" style={{ display: "none" }}></canvas>
           </div>
           {/* <img draggable={false} src={data && data?.logo} style={imageStyle} /> */}
         </div>
