@@ -25,12 +25,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   pay: {
-    background: "#ffbd1b",
-    color: "#fff",
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    background:
+      "linear-gradient(94deg, rgba(191,149,63,1) 10%, rgba(255,248,183,1) 50%, rgba(191,149,63,1) 90%)",
+    color: "rgba(0, 0, 0, 0.74)",
+    boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .3)",
     "&:hover": {
       backgroundColor: "#DAA520",
-      color: "#FFF",
     },
   },
 }));

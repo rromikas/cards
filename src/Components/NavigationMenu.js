@@ -22,7 +22,7 @@ const NavigationMenu = ({ menu }) => {
         className="cursor-pointer position-absolute"
         style={{ right: 120, top: 34, zIndex: 10 }}
       >
-        Terms and conditions
+        Terms & conditions
       </a>
       <Modal open={showTerms}>
         <div

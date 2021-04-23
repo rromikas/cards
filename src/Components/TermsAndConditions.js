@@ -393,7 +393,7 @@ const Doc = () => {
           metal card is lost or if it expires in the first 365 days, we’ll replace it for just the
           cost of shipping.
         </p>
-        <p>For more information or to make a claim please contact:&nbsp;info@carboncoskins.com</p>
+        <p>For more information or to make a claim please contact:&nbsp;orders@ucardelite.com</p>
       </div>
     </div>
   );

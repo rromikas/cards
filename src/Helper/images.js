@@ -1,5 +1,4 @@
-const ImageTracer = require("imagetracerjs");
-const { convertImageToSvg, convertImageFileToSvg } = require("Services");
+const { convertImageToSvg } = require("Services");
 const { uploadImage } = require("Helper/firebase");
 
 export const getAspectRatio = (objectUrl) => {
@@ -22,7 +21,6 @@ export const renderImage = (image) => {
 
       convertImageToSvg({ imageUrl })
         .then((res) => {
-          console.log(res);
           const logoContainer = document.getElementById("logo-container");
           logoContainer.innerHTML = res.svg;
           let svgNode = logoContainer.querySelector("svg");

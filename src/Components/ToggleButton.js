@@ -5,9 +5,11 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   toggle: {
-    outlineColor: "#EFE436",
-    outlineWidth: "1px",
-    outlineStyle: "solid",
+    border: "1px solid #EFE436",
+    // outlineRadius: 6,
+    // outlineColor: "#EFE436",
+    // outlineWidth: "1px",
+    // outlineStyle: "solid",
     color: "black",
   },
 }));

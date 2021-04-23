@@ -34,7 +34,7 @@ const TogglemImage = ({ getBackground, metals }) => {
             key={`metal-option-${i}`}
             value={resources[x]}
             aria-label="left aligned"
-            className="toggle-image-item bg-cover"
+            className="toggle-image-item bg-cover mx-1"
             style={{
               backgroundImage: `url(${resources[x].image})`,
               backgroundSize: "cover",
