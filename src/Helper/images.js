@@ -44,3 +44,10 @@ export const removeLogo = () => {
   const logo = document.getElementById("logo-container");
   logo.innerHTML = "";
 };
+
+export const preloadImages = (images) => {
+  images.forEach((x) => {
+    var img = new Image();
+    img.src = x;
+  });
+};

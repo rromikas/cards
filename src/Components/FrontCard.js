@@ -51,7 +51,7 @@ function FrontCard({ data, background }) {
       {data && data.customText && (
         <Draggable {...dragHandlers}>
           <div
-            className="custom-text-last d-inline-flex position-absolute"
+            className="d-inline-flex position-absolute text-white"
             style={{ fontSize: `${data.textSize + "px"}`, left: 10, top: 10 }}
           >
             {data.customText}

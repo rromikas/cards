@@ -1,4 +1,3 @@
-import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
 import React from "react";
 import TextField from "@material-ui/core/TextField";
@@ -26,15 +25,7 @@ const Form = ({ open, handleClose }) => {
   };
 
   return (
-    <Dialog
-      classes={{ paper: "w-100" }}
-      open={open}
-      TransitionComponent={Transition}
-      keepMounted
-      onClose={handleClose}
-      aria-labelledby="alert-dialog-slide-title"
-      aria-describedby="alert-dialog-slide-description"
-    >
+    <div className="bg-white">
       {messageSent ? (
         <div style={{ height: 449 }} className="p-5 w-100">
           <div className="w-100 h-100 d-flex position-relative">
@@ -57,7 +48,7 @@ const Form = ({ open, handleClose }) => {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="p-5">
-          <div className={"h2 mb-5"}>Contact us</div>
+          <div className={"h2 mb-5"}>Your message</div>
           <div className="mb-4">
             <TextField
               spellCheck={false}
@@ -90,7 +81,7 @@ const Form = ({ open, handleClose }) => {
           </div>
         </form>
       )}
-    </Dialog>
+    </div>
   );
 };
 

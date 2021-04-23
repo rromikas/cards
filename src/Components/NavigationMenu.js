@@ -19,7 +19,7 @@ const NavigationMenu = ({ menu }) => {
       </a>
       <a
         onClick={() => setShowTerms(true)}
-        className="cursor-pointer position-absolute"
+        className="cursor-pointer position-absolute d-none d-sm-block"
         style={{ right: 120, top: 34, zIndex: 10 }}
       >
         Terms & conditions

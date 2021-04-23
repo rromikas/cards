@@ -1,22 +1,20 @@
 import React from "react";
 import "../../Styles/css/contact.css";
-import { AiOutlineMail } from "react-icons/ai";
+import { AiOutlinePhone } from "react-icons/ai";
 import { FiInstagram, FiFacebook, FiTwitter } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 import Form from "./Form";
+import Tooltip from "@material-ui/core/Tooltip";
 
 function Contact() {
-  const [openForm, setOpenForm] = React.useState(false);
   return (
     <div className="row contact-container">
       <div className="col-md-5 contact-left">
         <div className="contact-header">Contact</div>
       </div>
       <div className="col-md-7 contact-right">
-        <div className="outro">
-          Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print,
-          graphic or web designs. The passage is attributed to an unknown typesetter in the 15th
-          century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum
-          for use in a type specimen book.
+        <div className="bg-white pb-4">
+          <Form></Form>
         </div>
 
         <div className="social-div">
@@ -29,8 +27,31 @@ function Contact() {
           <a href="https://twitter.com/EliteUcard" target="_blank">
             <FiTwitter className="social-icon" />
           </a>
-          <AiOutlineMail onClick={() => setOpenForm(true)} className="social-icon" />
-          <Form open={openForm} handleClose={() => setOpenForm(false)}></Form>
+          <Tooltip
+            classes={{ tooltip: "bg-black shadow-lg" }}
+            title={
+              <div
+                style={{
+                  fontSize: 22,
+                }}
+                className="p-3"
+              >
+                <div style={{ fontSize: 14 }} className="mb-3">
+                  Call us
+                </div>
+                +123123213
+              </div>
+            }
+          >
+            <div>
+              <AiOutlinePhone className="social-icon" />
+            </div>
+          </Tooltip>
+          <a href="https://api.whatsapp.com/send?phone=15551234567" target="_blank">
+            <div className="whatsapp-icon-container d-flex align-items-center justify-content-center">
+              <FaWhatsapp className="whatsapp-icon" size={24} />
+            </div>
+          </a>
         </div>
       </div>
     </div>

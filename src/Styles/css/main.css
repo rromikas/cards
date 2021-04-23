@@ -80,3 +80,7 @@ a:hover {
   ) !important;
   color: #333 !important;
 }
+
+.bg-black {
+  background-color: black !important;
+}

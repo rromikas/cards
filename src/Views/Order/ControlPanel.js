@@ -14,6 +14,7 @@ import CustomizeItem from "../../Components/CustomizeItem";
 import Invoice from "./Invoice";
 import { useObjectVal } from "react-firebase-hooks/database";
 import { getDbRef } from "Helper/firebase";
+import { preloadImages } from "Helper/images";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -74,6 +75,20 @@ export default function ControlPanel({ getValue, handleCheckoutSubmit }) {
       border: controlValue.borderIndicator,
     });
   }, [controlValue]);
+
+  useEffect(() => {
+    console.log(metals, borders);
+    let metalsImgs = [],
+      bordersImgs = [];
+    if (metals) {
+      metalsImgs = Object.values(metals).map((x) => x.image);
+    }
+
+    if (borders) {
+      bordersImgs = Object.values(borders).map((x) => x.image);
+    }
+    preloadImages([...metalsImgs, ...bordersImgs]);
+  }, [metals, borders]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

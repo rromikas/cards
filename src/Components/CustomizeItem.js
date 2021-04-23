@@ -137,7 +137,11 @@ function CustomizeItem({
             Upload Logo
           </Button>
         </label>
-        {loadingImage ? <LinearProgress></LinearProgress> : null}
+        {loadingImage ? (
+          <div className="py-3">
+            <LinearProgress></LinearProgress>
+          </div>
+        ) : null}
 
         {imageContol && (
           <>
