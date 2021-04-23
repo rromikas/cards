@@ -70,3 +70,13 @@ a:hover {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.options-group .MuiToggleButton-root.Mui-selected {
+  background: linear-gradient(
+    94deg,
+    rgba(191, 149, 63, 1) 10%,
+    rgba(255, 248, 183, 1) 50%,
+    rgba(191, 149, 63, 1) 90%
+  ) !important;
+  color: #333 !important;
+}

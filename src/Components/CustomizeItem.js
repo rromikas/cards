@@ -126,7 +126,7 @@ function CustomizeItem({
           type="file"
           onChange={handleImage}
         />
-        <label htmlFor="contained-button-file" className="col-md-12">
+        <label htmlFor="contained-button-file" className="w-100">
           <Button
             variant="outlined"
             size="large"
@@ -137,15 +137,11 @@ function CustomizeItem({
             Upload Logo
           </Button>
         </label>
-        {loadingImage ? (
-          <div className="col-12">
-            <LinearProgress></LinearProgress>
-          </div>
-        ) : null}
+        {loadingImage ? <LinearProgress></LinearProgress> : null}
 
         {imageContol && (
           <>
-            <div className="row image-control">
+            <div className="row">
               <div className="col-md-6">
                 <Typography gutterBottom>Width</Typography>
                 <Slider

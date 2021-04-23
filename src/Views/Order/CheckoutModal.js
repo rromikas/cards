@@ -19,6 +19,7 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import * as yup from "yup";
+import ToggleButtonContainer from "Components/ToggleButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +40,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide({ open, handleClose, data, totalAmount }) {
+export default function AlertDialogSlide({
+  open,
+  handleClose,
+  data,
+  totalAmount,
+  setShippingPrice,
+  setInsurancePrice,
+}) {
   const formEl = useRef();
 
   const createOrderIntent = (vals) => {
@@ -57,7 +65,7 @@ export default function AlertDialogSlide({ open, handleClose, data, totalAmount 
     });
   };
 
-  const { values, errors, handleChange, handleSubmit, submitCount } = useFormik({
+  const { values, errors, handleChange, handleSubmit, submitCount, setFieldValue } = useFormik({
     initialValues: {
       name_first: "",
       name_last: "",
@@ -84,10 +92,47 @@ export default function AlertDialogSlide({ open, handleClose, data, totalAmount 
     },
   });
 
+  const shippingTypes = {
+    local: {
+      value: "local",
+      label: "Local Shipping (South Africa Only)",
+      options: [
+        { label: "Free Standard Shipping", value: "local standard", price: 0 },
+        { label: "Express Shipping", value: "local express", price: 250 },
+      ],
+    },
+    rest: {
+      value: "rest",
+      label: "Rest Of World",
+      options: [
+        { label: "Standard Shipping", value: "rest standard", price: 300 },
+        { label: "Express Shipping", value: "rest express", price: 550 },
+      ],
+    },
+  };
+
+  const [shippingType, setShippingType] = useState("local");
+
+  useEffect(() => {
+    setFieldValue("shipping", shippingTypes[shippingType].options[0].value);
+  }, [shippingType]);
+
+  useEffect(() => {
+    if (values.shipping) {
+      setShippingPrice(
+        shippingTypes[shippingType].options.find((x) => x.value === values.shipping).price
+      );
+    }
+  }, [values.shipping]);
+
+  useEffect(() => {
+    setInsurancePrice(values.insurance ? 850 : 0);
+  }, [values.insurance]);
+
   const classes = useStyles();
   const formData = new URLSearchParams({
-    merchant_id: 10000100,
-    merchant_key: "46f0cd694581a",
+    merchant_id: 17328503,
+    merchant_key: "nj056x4f79tnn",
     return_url: window.location.origin + "/order-success",
     cancel_url: window.location.origin + "/order-cancelled",
     notify_url: process.env.REACT_APP_API_URL + "/api/acceptPayment",
@@ -138,22 +183,26 @@ export default function AlertDialogSlide({ open, handleClose, data, totalAmount 
                   >
                     Select shipping
                   </Typography>
+                  <div className="options-group mb-3">
+                    <ToggleButtonContainer
+                      data={Object.values(shippingTypes)}
+                      getOptions={(val) => setShippingType(val)}
+                      defaultValue={shippingType}
+                    />
+                  </div>
                   <RadioGroup
                     aria-label="gender"
                     name="shipping"
                     value={values.shipping}
                     onChange={handleChange}
                   >
-                    <FormControlLabel
-                      value="Express Shipping R250"
-                      control={<Radio />}
-                      label="Local Shipping (South Africa Only) – Free Standard Shipping, Express Shipping R250"
-                    />
-                    <FormControlLabel
-                      value="Express Shipping R550"
-                      control={<Radio />}
-                      label="Rest Of World – Standard Shipping R300, Express Shipping R550"
-                    />
+                    {shippingTypes[shippingType].options.map((x, i) => (
+                      <FormControlLabel
+                        value={x.value}
+                        control={<Radio />}
+                        label={x.label + " " + (x.price === 0 ? "" : "R " + x.price)}
+                      />
+                    ))}
                   </RadioGroup>
                 </div>
                 <div className="mt-3 col-12">
@@ -166,7 +215,7 @@ export default function AlertDialogSlide({ open, handleClose, data, totalAmount 
                         name="insurance"
                       />
                     }
-                    label="If card is lost or if it expires in the first 365 days, we’ll replace it just pay the shipping costs"
+                    label="If card is lost or if it expires in the first 365 days, we’ll replace it just pay the shipping costs (R 850)"
                   />
                 </div>
                 {data.borderIndicator && data.borderIndicator.image !== "none" ? (

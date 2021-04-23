@@ -6,10 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   toggle: {
     border: "1px solid #EFE436",
-    // outlineRadius: 6,
-    // outlineColor: "#EFE436",
-    // outlineWidth: "1px",
-    // outlineStyle: "solid",
     color: "black",
   },
 }));
@@ -20,7 +16,8 @@ const ToggleButtonContainer = ({ data, getOptions, defaultValue, getOptionsType 
 
   const handleChange = (e, value) => {
     if (value) {
-      setGroupValue(value);
+      // setGroupValue(value);
+      getOptions(value);
     }
   };
 
@@ -30,11 +27,11 @@ const ToggleButtonContainer = ({ data, getOptions, defaultValue, getOptionsType 
     }
   }, [, groupValue, setGroupValue]);
 
-  useEffect(() => {
-    if (getOptions) {
-      getOptions(groupValue);
-    }
-  }, [, groupValue, setGroupValue]);
+  // useEffect(() => {
+  //   if (getOptions) {
+  //     getOptions(groupValue);
+  //   }
+  // }, [, groupValue, setGroupValue]);
 
   return (
     <ToggleButtonGroup size="large" value={defaultValue} exclusive onChange={handleChange}>

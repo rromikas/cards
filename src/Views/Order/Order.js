@@ -39,8 +39,8 @@ function Order() {
   return (
     <div className="row order-container">
       <div className="col-md-5">
-        <FrontCard data={customCard} background={activeBackground || { image: M2 }} />
-        <BackCard data={customCard} background={activeBackground || { image: M2 }} />
+        <FrontCard data={customCard} background={activeBackground || { image: M3 }} />
+        <BackCard data={customCard} background={activeBackground || { image: M3 }} />
       </div>
       <div className="col-md-7">
         <ControlPanel handleCheckoutSubmit={handleCheckoutSubmit} getValue={handleValue} />

@@ -21,13 +21,16 @@ export const renderImage = (image) => {
 
       convertImageToSvg({ imageUrl })
         .then((res) => {
-          const logoContainer = document.getElementById("logo-container");
-          logoContainer.innerHTML = res.svg;
-          let svgNode = logoContainer.querySelector("svg");
-          svgNode.setAttribute("width", "100%");
-          svgNode.setAttribute("height", "100%");
-          svgNode.setAttribute("preserveAspectRatio", "none");
-          svgNode.setAttribute("viewBox", `0 0 ${res.width} ${res.height}`);
+          if (res.svg) {
+            const logoContainer = document.getElementById("logo-container");
+            logoContainer.innerHTML = res.svg;
+            let svgNode = logoContainer.querySelector("svg");
+            svgNode.setAttribute("width", "100%");
+            svgNode.setAttribute("height", "100%");
+            svgNode.setAttribute("preserveAspectRatio", "none");
+            svgNode.setAttribute("viewBox", `0 0 ${res.width} ${res.height}`);
+          }
+
           resolve(true);
         })
         .catch((er) => resolve(true));

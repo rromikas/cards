@@ -37,13 +37,15 @@ function BackCard({ data, background }) {
         }}
       >
         <div className="bankname-left">
-          <span>{checkCardName(data && data.backgroundIndicator)} </span>
+          <span style={{ lineHeight: 1, marginBottom: 6 }}>
+            {checkCardName(data && data.backgroundIndicator)}{" "}
+          </span>
           <span>Services : 1XBV-GTSR-2REP-BH43 (Bank Name)</span>
         </div>
         <div className="back-logo">
-          <div>Powered By</div>
-          <div className="position-relative d-flex justify-content-center" style={{ width: 85 }}>
-            <img width={100} src={Logo}></img>
+          <div style={{ fontSize: 12 }}>Powered By</div>
+          <div className="position-relative d-flex justify-content-center" style={{ width: 95 }}>
+            <img width={120} src={Logo}></img>
           </div>
         </div>
       </div>

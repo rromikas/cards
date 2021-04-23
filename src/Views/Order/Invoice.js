@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AlertDialogSlide from "./CheckoutModal";
@@ -30,8 +30,17 @@ function Invoice({ data, handleSubmit }) {
     setOpen(false);
   };
 
-  const totalAmount =
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  const priceForBordersAndMetals =
     +(data.borderIndicator.price || 0) + +(data.backgroundIndicator.price || 1499);
+
+  const [shippingPrice, setShippingPrice] = useState(0);
+  const [insurancePrice, setInsurancePrice] = useState(0);
+
+  useEffect(() => {
+    setTotalAmount(priceForBordersAndMetals + shippingPrice + insurancePrice);
+  }, [priceForBordersAndMetals, shippingPrice, insurancePrice]);
 
   return (
     <>
@@ -41,6 +50,8 @@ function Invoice({ data, handleSubmit }) {
         handleSubmit={handleSubmit}
         data={data}
         totalAmount={totalAmount}
+        setShippingPrice={setShippingPrice}
+        setInsurancePrice={setInsurancePrice}
       />
       {data.borderIndicator ? (
         <div className="row extra-fac">

@@ -169,7 +169,7 @@ export default function ControlPanel({ getValue, handleCheckoutSubmit }) {
             <ToggleButtonContainer
               data={ChipTypeData}
               defaultValue={controlValue.cardNumberType}
-              getOptionsType={handleOptionsType}
+              getOptions={handleOptionsType}
             />
           </div>
         </div>
