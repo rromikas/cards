@@ -161,7 +161,7 @@ export default function AlertDialogSlide({
         <DialogTitle id="alert-dialog-slide-title">{"Invoice Details"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            <form method="POST" ref={formEl} action="https://sandbox.payfast.co.za/eng/process/">
+            <form method="POST" ref={formEl} action="https://www.payfast.co.za/eng/process">
               <div className="row dialog-upper">
                 <div className="col-md-8 mb-3 mb-md-0">
                   <TextField label="Discount Code" type="text" fullWidth variant="outlined" />
