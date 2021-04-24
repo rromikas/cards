@@ -13,7 +13,7 @@ function Contact() {
         <div className="contact-header">Contact</div>
       </div>
       <div className="col-md-7 contact-right">
-        <div className="bg-white pb-4">
+        <div className="bg-white">
           <Form></Form>
         </div>
 

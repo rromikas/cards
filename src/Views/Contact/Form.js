@@ -33,15 +33,12 @@ const Form = ({ open, handleClose }) => {
             <div className="position-absolute" style={{ right: 0, bottom: 0 }}>
               <Button
                 onClick={() => {
-                  handleClose();
-                  setTimeout(() => {
-                    setMessageSent(false);
-                    setMessage("");
-                    setEmail("");
-                  }, 300);
+                  setMessageSent(false);
+                  setMessage("");
+                  setEmail("");
                 }}
               >
-                Close
+                Send another
               </Button>
             </div>
           </div>
@@ -76,8 +73,10 @@ const Form = ({ open, handleClose }) => {
               rowsMax={10}
             />
           </div>
-          <div style={{ maxWidth: 200, width: "100%", float: "right" }}>
-            <Button type="submit">{loading ? "Loading..." : "Submit"}</Button>
+          <div className="d-flex justify-content-end">
+            <div style={{ maxWidth: 200, width: "100%" }}>
+              <Button type="submit">{loading ? "Loading..." : "Submit"}</Button>
+            </div>
           </div>
         </form>
       )}
