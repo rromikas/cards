@@ -8,24 +8,33 @@ import M2 from "../../Assets/images/card/m2.jpg";
 import M3 from "../../Assets/images/card/m3.jpg";
 import M4 from "../../Assets/images/card/m4.jpg";
 import { sendCards } from "Services";
+import Button from "Components/Button";
+import TextField from "@material-ui/core/TextField";
 
 function Order() {
   const [customCard, setCustomCard] = useState();
   const [activeBackground, setActiveBackground] = useState();
+  const [email, setEmail] = useState("");
+  const [buttonVal, setButtonVal] = useState("Look up cards");
 
   const handleValue = (value) => {
     setCustomCard(value);
   };
 
-  const handleCheckoutSubmit = (email) => async () => {
+  const handleCardsLookup = async () => {
+    setButtonVal("Loading...");
     const response = await sendCards({
       name: customCard.primaryName,
+      email,
       provider: customCard.cardNumberType,
       numberOnFront: customCard.cardNumberPosition === "front",
       logoText: customCard.customText,
       logoTextSize: customCard.textSize,
-      email,
     });
+    setButtonVal("Email sent!");
+    setTimeout(() => {
+      setButtonVal("Look up cards");
+    }, 2000);
   };
 
   useEffect(() => {
@@ -39,11 +48,27 @@ function Order() {
   return (
     <div className="row order-container">
       <div className="col-md-5">
+        <div className="bg-white p-3 align-items-center mb-3">
+          <TextField
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            id="filled-secondary"
+            className="mb-3"
+            label="Email"
+            fullWidth
+          />
+          <div className="d-flex justify-content-end">
+            <div style={{ maxWidth: 200, width: "100%" }}>
+              <Button onClick={handleCardsLookup}>{buttonVal}</Button>
+            </div>
+          </div>
+        </div>
+
         <FrontCard data={customCard} background={activeBackground || { image: M3 }} />
         <BackCard data={customCard} background={activeBackground || { image: M3 }} />
       </div>
       <div className="col-md-7">
-        <ControlPanel handleCheckoutSubmit={handleCheckoutSubmit} getValue={handleValue} />
+        <ControlPanel getValue={handleValue} />
       </div>
     </div>
   );

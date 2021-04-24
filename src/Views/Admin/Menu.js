@@ -19,6 +19,9 @@ const Menu = ({ setPage, page, logout }) => {
       ))}
       <div className="flex-grow-1 d-flex align-items-end">
         <div className="w-100">
+          <ButtonBase className="admin-menu-btn" onClick={logout}>
+            Get cards
+          </ButtonBase>
           <a href="/">
             <ButtonBase className="admin-menu-btn mb-3">Visit website</ButtonBase>
           </a>

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Invoice({ data, handleSubmit }) {
+function Invoice({ data }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -30,24 +30,19 @@ function Invoice({ data, handleSubmit }) {
     setOpen(false);
   };
 
-  const [totalAmount, setTotalAmount] = useState(0);
-
   const priceForBordersAndMetals =
     +(data.borderIndicator.price || 0) + +(data.backgroundIndicator.price || 1499);
 
   const [shippingPrice, setShippingPrice] = useState(0);
   const [insurancePrice, setInsurancePrice] = useState(0);
 
-  useEffect(() => {
-    setTotalAmount(priceForBordersAndMetals + shippingPrice + insurancePrice);
-  }, [priceForBordersAndMetals, shippingPrice, insurancePrice]);
+  const totalAmount = priceForBordersAndMetals + shippingPrice + insurancePrice;
 
   return (
     <>
       <AlertDialogSlide
         open={open}
         handleClose={handleClose}
-        handleSubmit={handleSubmit}
         data={data}
         totalAmount={totalAmount}
         setShippingPrice={setShippingPrice}
