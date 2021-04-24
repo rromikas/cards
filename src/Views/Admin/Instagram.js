@@ -71,7 +71,7 @@ const Discounts = () => {
                 value={token}
                 onChange={(e) => setToken(e.target.value)}
               ></input>
-              {/* <div className="d-flex justify-content-end">
+              <div className="d-flex justify-content-end">
                 <a
                   style={{ fontSize: 12, lineHeight: 1 }}
                   target="_blank"
@@ -80,7 +80,7 @@ const Discounts = () => {
                 >
                   HOW TO GENERATE?
                 </a>
-              </div> */}
+              </div>
             </div>
             {editToken ? (
               <ButtonBase
