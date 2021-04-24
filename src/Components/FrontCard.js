@@ -6,7 +6,6 @@ import { ReactComponent as MastercardIcon } from "Assets/images/card/mastercard.
 import { renderImage } from "Helper/images";
 
 function FrontCard({ data, background }) {
-  console.log("Data", data);
   const [state, setState] = React.useState({
     activeDrags: 0,
   });

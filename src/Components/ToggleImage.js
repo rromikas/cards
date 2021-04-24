@@ -6,7 +6,7 @@ const TogglemImage = ({ getBackground, metals }) => {
   const resources = metals ? metals : {};
 
   const [groupValue, setGroupValue] = useState();
-  console.log("888", groupValue);
+
   const handleChange = (_event, value) => {
     if (value) {
       setGroupValue(value);

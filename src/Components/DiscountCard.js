@@ -16,7 +16,6 @@ const useStyles = makeStyles({
   code: {
     background: "#222222",
     borderRadius: 7,
-    textTransform: "uppercase",
     fontSize: 36,
     textAlign: "center",
     padding: "5px 20px",

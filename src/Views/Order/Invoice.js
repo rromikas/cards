@@ -35,8 +35,9 @@ function Invoice({ data }) {
 
   const [shippingPrice, setShippingPrice] = useState(0);
   const [insurancePrice, setInsurancePrice] = useState(0);
+  const [discount, setDiscount] = useState(0);
 
-  const totalAmount = priceForBordersAndMetals + shippingPrice + insurancePrice;
+  const totalAmount = priceForBordersAndMetals + shippingPrice + insurancePrice + discount;
 
   return (
     <>
@@ -47,6 +48,8 @@ function Invoice({ data }) {
         totalAmount={totalAmount}
         setShippingPrice={setShippingPrice}
         setInsurancePrice={setInsurancePrice}
+        setDiscount={setDiscount}
+        discount={discount}
       />
       {data.borderIndicator ? (
         <div className="row extra-fac">

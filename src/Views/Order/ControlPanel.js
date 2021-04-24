@@ -77,7 +77,6 @@ export default function ControlPanel({ getValue, handleCheckoutSubmit }) {
   }, [controlValue]);
 
   useEffect(() => {
-    console.log(metals, borders);
     let metalsImgs = [],
       bordersImgs = [];
     if (metals) {

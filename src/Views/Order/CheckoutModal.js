@@ -20,6 +20,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import * as yup from "yup";
 import ToggleButtonContainer from "Components/ToggleButton";
+import firebase from "FirebaseApp";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +48,8 @@ export default function AlertDialogSlide({
   totalAmount,
   setShippingPrice,
   setInsurancePrice,
+  setDiscount,
+  discount,
 }) {
   const formEl = useRef();
 
@@ -112,6 +115,7 @@ export default function AlertDialogSlide({
   };
 
   const [shippingType, setShippingType] = useState("local");
+  const [discountCode, setDiscountCode] = useState("");
 
   useEffect(() => {
     setFieldValue("shipping", shippingTypes[shippingType].options[0].value);
@@ -128,6 +132,18 @@ export default function AlertDialogSlide({
   useEffect(() => {
     setInsurancePrice(values.insurance ? 850 : 0);
   }, [values.insurance]);
+
+  const searchDiscount = async () => {
+    let results = await firebase.database().ref("discounts").get();
+    if (results.val()) {
+      const discountMatch = Object.values(results.val()).find((x) => x.code === discountCode);
+      if (discountMatch) {
+        setDiscount(-discountMatch.discount);
+      } else {
+        setDiscount(0);
+      }
+    }
+  };
 
   const classes = useStyles();
   const formData = new URLSearchParams({
@@ -164,10 +180,18 @@ export default function AlertDialogSlide({
             <form method="POST" ref={formEl} action="https://www.payfast.co.za/eng/process">
               <div className="row dialog-upper">
                 <div className="col-md-8 mb-3 mb-md-0">
-                  <TextField label="Discount Code" type="text" fullWidth variant="outlined" />
+                  <TextField
+                    label="Discount Code"
+                    value={discountCode}
+                    onChange={(e) => setDiscountCode(e.target.value)}
+                    type="text"
+                    fullWidth
+                    variant="outlined"
+                  />
                 </div>
                 <div className="col-md-4">
                   <Button
+                    onClick={searchDiscount}
                     variant="contained"
                     color="primary"
                     fullWidth
@@ -177,6 +201,7 @@ export default function AlertDialogSlide({
                     Apply
                   </Button>
                 </div>
+                {discount ? <div className="col-12">{discount} R</div> : null}
                 <div className="col-12 mt-4">
                   <Typography
                     className={`mb-3 ${submitCount > 0 && errors["shipping"] ? "text-danger" : ""}`}
@@ -238,7 +263,7 @@ export default function AlertDialogSlide({
               <input type="hidden" name="return_url" value={formData.get("return_url")}></input>
               <input type="hidden" name="cancel_url" value={formData.get("cancel_url")}></input>
               <input type="hidden" name="notify_url" value={formData.get("notify_url")}></input>
-              <div className="container row mt-4">
+              <div className="row mt-4 px-3">
                 <div className="col-md-6 mb-4 mb-md-0">
                   <TextField
                     required
@@ -284,61 +309,63 @@ export default function AlertDialogSlide({
               <input type="hidden" name="item_name" value={formData.get("item_name")}></input>
               <input type="hidden" name="signature" value={signature}></input>
             </form>
-            <div className="container row mt-4">
-              <div className="col-md-12">
-                <TextField
-                  required
-                  value={values.address}
-                  onChange={handleChange}
-                  error={submitCount > 0 && errors["address"]}
-                  helperText={submitCount > 0 ? errors["address"] : ""}
-                  label="Address"
-                  name="address"
-                  fullWidth
-                  type="text"
-                />
+            <div className="px-3">
+              <div className="row mt-4">
+                <div className="col-md-12">
+                  <TextField
+                    required
+                    value={values.address}
+                    onChange={handleChange}
+                    error={submitCount > 0 && errors["address"]}
+                    helperText={submitCount > 0 ? errors["address"] : ""}
+                    label="Address"
+                    name="address"
+                    fullWidth
+                    type="text"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="container row mt-4">
-              <div className="col-md-6 mb-4 mb-md-0">
-                <TextField
-                  required
-                  value={values.city}
-                  onChange={handleChange}
-                  error={submitCount > 0 && errors["city"]}
-                  helperText={submitCount > 0 ? errors["city"] : ""}
-                  label="City"
-                  name="city"
-                  fullWidth
-                  type="text"
-                />
+              <div className="row mt-4">
+                <div className="col-md-6 mb-4 mb-md-0">
+                  <TextField
+                    required
+                    value={values.city}
+                    onChange={handleChange}
+                    error={submitCount > 0 && errors["city"]}
+                    helperText={submitCount > 0 ? errors["city"] : ""}
+                    label="City"
+                    name="city"
+                    fullWidth
+                    type="text"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <TextField
+                    required
+                    value={values.state}
+                    onChange={handleChange}
+                    error={submitCount > 0 && errors["state"]}
+                    helperText={submitCount > 0 ? errors["state"] : ""}
+                    label="State"
+                    name="state"
+                    fullWidth
+                    type="text"
+                  />
+                </div>
               </div>
-              <div className="col-md-6">
-                <TextField
-                  required
-                  value={values.state}
-                  onChange={handleChange}
-                  error={submitCount > 0 && errors["state"]}
-                  helperText={submitCount > 0 ? errors["state"] : ""}
-                  label="State"
-                  name="state"
-                  fullWidth
-                  type="text"
-                />
-              </div>
-            </div>
-            <div className="container row justify-content-lg-center mt-4 pt-2 pb-4">
-              <div className="col-md-12">
-                <Button
-                  onClick={handleSubmit}
-                  type="submit"
-                  size="large"
-                  fullWidth
-                  variant="contained"
-                  color="secondary"
-                >
-                  Pay
-                </Button>
+              <div className="row justify-content-lg-center mt-4 pt-2 pb-4">
+                <div className="col-md-12">
+                  <Button
+                    onClick={handleSubmit}
+                    type="submit"
+                    size="large"
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                  >
+                    Pay
+                  </Button>
+                </div>
               </div>
             </div>
           </DialogContentText>
