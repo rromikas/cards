@@ -6,6 +6,8 @@ import { Route, Switch } from "react-router-dom";
 import { Routes } from "./Routes/Routes";
 import { useState } from "react";
 
+console.log("env variables", process.env);
+
 function App() {
   const [user, setUser] = useState(null);
 
