@@ -5,6 +5,4 @@ export const menuItem = [
   { pathname: "/faq", name: "FAQ" },
   { pathname: "/gallery", name: "Gallery" },
   { pathname: "/contact", name: "Contact" },
-  { pathname: "/login", name: "Login" },
-  { pathname: "/admin", name: "Admin" },
 ];

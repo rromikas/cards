@@ -1,7 +1,7 @@
 import React from "react";
 import "../Styles/css/card.css";
 import { checkCardName } from "../Helper/checkCardName";
-import Logo from "Assets/images/logo/logo2r.png";
+import Logo from "Assets/images/logo/logosvg.svg";
 
 function BackCard({ data, background }) {
   let divStyle = {
@@ -16,7 +16,7 @@ function BackCard({ data, background }) {
           <div className="back-seal mr-4"></div>
           <div className="back-seal-text">777</div>
         </div>
-        <div className="authorize-sig">Authorize Signature &nbsp; &nbsp; Not Valid Unless Sign</div>
+        <div className="authorize-sig">Authorized Signature & Not Valid Unless Sign</div>
       </div>
       <div className="text-center position-absolute" style={{ top: 160, left: 20 }}>
         {data && data.cardNumberPosition === "back" && (
@@ -36,17 +36,12 @@ function BackCard({ data, background }) {
           paddingRight: 20,
         }}
       >
-        <div className="bankname-left">
-          <span style={{ lineHeight: 1, marginBottom: 6 }}>
-            {checkCardName(data && data.backgroundIndicator)}{" "}
-          </span>
-          <span>Services : 1XBV-GTSR-2REP-BH43 (Bank Name)</span>
-        </div>
+        <span style={{ fontSize: "0.6rem" }}>Services : 1XBV-GTSR-2REP-BH43 (Bank Name)</span>
         <div className="back-logo">
-          <div style={{ fontSize: 12 }}>Powered By</div>
-          <div className="position-relative d-flex justify-content-center" style={{ width: 95 }}>
-            <img width={120} src={Logo}></img>
+          <div style={{ fontSize: 12 }} className="mb-2">
+            Powered By
           </div>
+          <img width={95} src={Logo}></img>
         </div>
       </div>
       <div

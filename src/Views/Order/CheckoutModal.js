@@ -254,7 +254,7 @@ export default function AlertDialogSlide({
                 <div className="order">
                   <div className="order-item">
                     <Typography>Total</Typography>
-                    <Typography>${totalAmount}</Typography>
+                    <Typography>R{totalAmount}</Typography>
                   </div>
                 </div>
               </div>

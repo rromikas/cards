@@ -127,6 +127,10 @@ function CustomizeItem({
           onChange={handleImage}
         />
         <label htmlFor="contained-button-file" className="w-100">
+          <div className="mb-2" style={{ fontSize: 12 }}>
+            Please ensure the image you upload has a white background only. Any image uploaded with
+            a different background will invert the image uploaded
+          </div>
           <Button
             variant="outlined"
             size="large"

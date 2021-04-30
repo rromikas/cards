@@ -3,10 +3,7 @@ import "../../Styles/css/order.css";
 import FrontCard from "../../Components/FrontCard";
 import BackCard from "../../Components/BackCard";
 import ControlPanel from "./ControlPanel";
-import M1 from "../../Assets/images/card/m1.jpg";
-import M2 from "../../Assets/images/card/m2.jpg";
 import M3 from "../../Assets/images/card/m3.jpg";
-import M4 from "../../Assets/images/card/m4.jpg";
 import { sendCards } from "Services";
 import Button from "Components/Button";
 import TextField from "@material-ui/core/TextField";
@@ -48,7 +45,7 @@ function Order() {
   return (
     <div className="row order-container">
       <div className="col-md-5">
-        <div className="bg-white p-3 align-items-center mb-3">
+        {/* <div className="bg-white p-3 align-items-center mb-3">
           <TextField
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -62,7 +59,7 @@ function Order() {
               <Button onClick={handleCardsLookup}>{buttonVal}</Button>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <FrontCard data={customCard} background={activeBackground || { image: M3 }} />
         <BackCard data={customCard} background={activeBackground || { image: M3 }} />

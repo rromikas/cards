@@ -23,22 +23,9 @@ html {
   overflow: scroll;
   overflow-x: hidden;
 }
-::-webkit-scrollbar {
-  width: 0px; /* Remove scrollbar space */
-  background: transparent; /* Optional: just make scrollbar invisible */
-}
-/* Optional: show position indicator in red */
-::-webkit-scrollbar-thumb {
-  background: #ff0000;
-}
 
 #App {
   height: 100vh;
-}
-
-#page-wrap {
-  /* top: 20%;
-    position: relative; */
 }
 
 .loading {
@@ -83,4 +70,8 @@ a:hover {
 
 .bg-black {
   background-color: black !important;
+}
+
+.bm-menu-wrap {
+  top: 0;
 }

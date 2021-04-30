@@ -102,6 +102,7 @@ export default function ControlPanel({ getValue, handleCheckoutSubmit }) {
   const ChipPositionData = [
     { value: "front", label: "Front" },
     { value: "back", label: "Back" },
+    { value: "none", label: "None" },
   ];
 
   const ChipTypeData = [

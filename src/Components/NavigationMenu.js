@@ -12,6 +12,7 @@ const NavigationMenu = ({ menu }) => {
   const show = !["login", "admin", "signup", "order-success", "order-cancelled"].includes(
     location.pathname.replace("/", "")
   );
+  const [isOpen, setIsOpen] = React.useState(false);
   return show ? (
     <>
       <a href="/">
@@ -22,7 +23,7 @@ const NavigationMenu = ({ menu }) => {
         className="cursor-pointer position-absolute d-none d-sm-block"
         style={{ right: 120, top: 34, zIndex: 10 }}
       >
-        Terms & conditions
+        Terms & Conditions
       </a>
       <Modal open={showTerms}>
         <div
@@ -52,7 +53,7 @@ const NavigationMenu = ({ menu }) => {
           </div>
         </div>
       </Modal>
-      <Menu right noOverlay pageWrapId={"page-wrap"} outerContainerId={"App"}>
+      <Menu right noOverlay>
         {menu?.map((item, i) => (
           <div key={`menu-item-${i}`} className="menu-item">
             <span className="menu-bar"></span>

@@ -41,7 +41,7 @@ const TogglemImage = ({ getBackground, metals }) => {
               backgroundPosition: "center",
             }}
           >
-            +{resources[x].price}R
+            + R{resources[x].price}
           </ToggleButton>
         ))}
     </ToggleButtonGroup>

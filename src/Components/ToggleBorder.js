@@ -39,7 +39,7 @@ const ToggleBorder = ({ getValue, borders }) => {
             {x !== "none" ? (
               <>
                 <img src={resources[x].image} className="img-border" />
-                <div className="border-price">+{resources[x].price}R</div>
+                <div className="border-price">+ R{resources[x].price}</div>
               </>
             ) : (
               <div className="text-white">None</div>

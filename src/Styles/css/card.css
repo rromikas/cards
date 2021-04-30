@@ -98,20 +98,6 @@
   width: 70%;
 }
 
-.bankname-left span:nth-child(1) {
-  color: #fff;
-  display: block;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-}
-
-.bankname-left span:nth-child(2) {
-  color: #fff;
-  display: block;
-  font-size: 0.6rem;
-  text-transform: uppercase;
-}
-
 .back-logo {
   color: #fff;
   text-align: left;
